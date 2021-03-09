@@ -1,95 +1,55 @@
+<!--
+=========================================================
+* Soft UI Design System - v1.0.1
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/soft-ui-design-system
+* Copyright 2021 Creative Tim (https://www.creative-tim.com)
+
+Coded by www.creative-tim.com
+
+ =========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="/static/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="/static/assets/img/favicon.png">
+  <link rel="canonical" href="https://appseed.us/ui-kit/soft-ui-design-system"/>
+  
+  <title>
+    Django Soft UI Design System - {% block title %}{% endblock %} | AppSeed
+  </title>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Webpixels">
-    <title>
-        Django Boilerplate Code - {% block title %}{% endblock %} | AppSeed
-    </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="/static/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="/static/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link href="/static/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link id="pagestyle" href="/static/assets/css/soft-design-system.css?v=1.0.1" rel="stylesheet" />
 
-    <!-- Preloader -->
-    <style>
-        @keyframes hidePreloader {
-            0% {
-                width: 100%;
-                height: 100%;
-            }
-
-            100% {
-                width: 0;
-                height: 0;
-            }
-        }
-
-        body>div.preloader {
-            position: fixed;
-            background: white;
-            width: 100%;
-            height: 100%;
-            z-index: 1071;
-            opacity: 0;
-            transition: opacity .5s ease;
-            overflow: hidden;
-            pointer-events: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        body:not(.loaded)>div.preloader {
-            opacity: 1;
-        }
-
-        body:not(.loaded) {
-            overflow: hidden;
-        }
-
-        body.loaded>div.preloader {
-            animation: hidePreloader .5s linear .5s forwards;
-        }
-    </style>
-    <script>
-        window.addEventListener("load", function() {
-            setTimeout(function() {
-                document.querySelector('body').classList.add('loaded');
-            }, 300);
-        });
-    </script>
-
-    <!-- Favicon -->
-    <link rel="icon" href="/static/assets/img/brand/favicon.png" type="image/png"><!-- Font Awesome -->
-    <link rel="stylesheet" href="/static/assets/libs/@fortawesome/fontawesome-free/css/all.min.css">
-    <!-- Quick CSS -->
-    <link rel="stylesheet" href="/static/assets/css/quick-website.css" id="stylesheet">
-
-    <!-- Specific Page CSS goes HERE  -->
-    {% block stylesheets %}{% endblock stylesheets %}
+  <!-- Specific CSS goes HERE -->
+  {% block stylesheets %}{% endblock stylesheets %}
 
 </head>
-<body>
+<body class="{% block body_class %}{% endblock body_class %}">
 
-    <!-- Preloader -->
-    <div class="preloader">
-        <div class="spinner-border text-primary" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-
-    {% include 'includes/cookies-modal.html' %}
-
-    {% include 'includes/navigation.html' %}
-    
     {% block content %}{% endblock content %}
+  
+    {% include "includes/footer.html" %}
 
-    {% include 'includes/footer.html' %}
+    {% include "includes/scripts.html" %}
 
-    {% include 'includes/scripts.html' %}
-
-    <!-- Specific Page JS goes HERE  -->
-    {% block javascripts %}{% endblock javascripts %}
+  <!-- Specific JS goes HERE --> 
+  {% block javascripts %}{% endblock javascripts %}
 
 </body>
 </html>

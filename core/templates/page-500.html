@@ -1,45 +1,51 @@
-{% extends "layouts/base-fullscreen.html" %}
+{% extends 'layouts/base.html' %}
 
-{% block title %} Error 404 {% endblock %} 
+{% block title %} Error 500 {% endblock title %}
 
-<!-- Specific Page CSS goes HERE  -->
+<!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
+
+{% block body_class %} contact-us {% endblock body_class %}
 
 {% block content %}
 
-    <!-- Main content -->
-    <section>
-        <div class="container d-flex flex-column">
-            <div class="row align-items-center justify-content-center min-vh-100">
-                <div class="col-md-6 col-lg-5 col-xl-5 py-6 py-md-0">
-                    <div class="card shadow zindex-100 mb-0">
-                        <div class="card-body px-md-5 py-5">
-                            <div class="mb-5 text-center">
-
-                                <h6 class="h3">Error 404</h6>
-                                <p class="text-muted mb-0">
-                                    Server error - <a href="/">HOME</a>
-                                </p>
-                                
-                                <br />
-                                <div class="pt-4 pb-5">
-                                    <img src="/static/assets/img/svg/illustrations/maintenance.svg" 
-                                    class="img-fluid img-center" style="height: 150px;" alt="Illustration" />
-                                </div>
-    
-                            </div>
-                        </div>
-                        <div class="card-footer text-center">
-                            <small>If the problem persists, please contact </small>
-                            <a href="/" class="small font-weight-bold">support</a>.
-                        </div>
+  <header>
+    <div class="page-header section-height-85">
+      <div>
+        <img class="position-absolute fixed-top ms-auto w-50 h-100 z-index-0 d-none d-sm-none d-md-block border-radius-section border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0" src="/static/assets/img/curved-images/curved8.jpg">
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 d-flex justify-content-center flex-column">
+            <div class="card d-flex blur justify-content-center p-4 shadow-lg my-sm-0 my-sm-6 mt-8 mb-5">
+              <div class="text-center">
+                <h3 class="text-gradient text-primary">
+                    Error 500
+                </h3>
+                <p class="mb-0">
+                  Server Error. If the problem persists, please contact support.
+                </p>
+              </div>
+              <form role="form" id="contact-form" method="post" autocomplete="off">
+                  <div class="row">
+                    <div class="col-md-12 text-center">
+                      <a href="/" class="btn bg-gradient-primary mt-3 mb-0">HOME</a>
                     </div>
+                  </div>
                 </div>
+              </form>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </header>
 
 {% endblock content %}
 
-<!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+
+  <script src="/static/assets/js/soft-design-system.min.js?v=1.0.1" type="text/javascript"></script>
+
+{% endblock javascripts %}
