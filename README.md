@@ -1,4 +1,4 @@
-# [Django](https://appseed.us/admin-dashboards/django) Soft UI
+# [Soft UI Design System](https://appseed.us/ui-kit/soft-ui-design-system) Django
 
 > Template [boilerplate code](https://appseed.us/boilerplate-code) used by [AppSeed](https://appseed.us) to generate simple admin dashboards coded in [Django](https://www.djangoproject.com/) - Features:
 
@@ -13,7 +13,7 @@
 
 > Links
 
-- [LIVE Demo](https://django-soft-ui-free.appseed-srv1.com/) - starter in action
+- [Soft UI Design System Django - Demo](https://django-soft-ui-free.appseed-srv1.com/) - starter in action
 - More [Django Dashboards](https://appseed.us/admin-dashboards/django) provided by AppSeed
 
 <br />
@@ -213,6 +213,14 @@ Visit `http://localhost:8001` in your browser. The app should be up & running.
 
 <br />
 
+## Soft UI Design System - UI Kit
+
+Most complex and innovative Design System Made by Creative Tim. Soft UI Design System is built with over 70 frontend individual elements, like buttons, inputs, navbars, navtabs, cards or alerts, giving you the freedom of choosing and combining. All components can take variations in colour, that you can easily modify using SASS files and classes.
+
+You will save a lot of time going from prototyping to full-functional code, because all elements are implemented. This Free Bootstrap 5 UK Kit is coming with prebuilt design blocks, so the development process is seamless, switching from our pages to the real website is very easy to be done.
+
+<br />
+
 ## Credits & Links
 
 - [Django](https://www.djangoproject.com/) - The official website
@@ -222,4 +230,4 @@ Visit `http://localhost:8001` in your browser. The app should be up & running.
 <br />
 
 ---
-[Django](https://appseed.us/admin-dashboards/django) Soft UI - Provided by **AppSeed** [App Generator](https://appseed.us/app-generator).
+[Soft UI Design System](https://appseed.us/ui-kit/soft-ui-design-system) Django - Provided by **AppSeed** [App Generator](https://appseed.us/app-generator).
