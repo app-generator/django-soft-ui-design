@@ -1,8 +1,8 @@
-# [Django Boilerplate](https://appseed.us/boilerplate-code/django-boilerplate)
+# [Django](https://appseed.us/admin-dashboards/django) Soft UI
 
 > Template [boilerplate code](https://appseed.us/boilerplate-code) used by [AppSeed](https://appseed.us) to generate simple admin dashboards coded in [Django](https://www.djangoproject.com/) - Features:
 
-- UI Kit: **Quick** (Free Version) by **Webpixels**
+- UI Kit: **Soft UI Design System** (Free Version) by **Creative-Tim**
 - SQLite Database, Django Native ORM
 - Modular design, clean codebase
 - Session-Based Authentication, Forms validation
@@ -13,9 +13,8 @@
 
 > Links
 
-- [Boierplate Code Django](https://appseed.us/boilerplate-code/django-boilerplate) - Product page
-- [Boierplate Code Django - Demo](https://boilerplate-code-django.appseed.us/) - LIVE Demo
-- [Boierplate Code Django - Docs](https://docs.appseed.us/boilerplate-code/django/) - Documentation
+- [LIVE Demo](https://django-soft-ui-free.appseed-srv1.com/) - starter in action
+- More [Django Dashboards](https://appseed.us/admin-dashboards/django) provided by AppSeed
 
 <br />
 
@@ -30,7 +29,7 @@ PRO versions include **Premium UI Kits**, Lifetime updates and **24/7 LIVE Suppo
 <br />
 <br />
 
-![Boierplate Code Django - Template project provided by AppSeed.](https://raw.githubusercontent.com/app-generator/boilerplate-code-django/master/media/boilerplate-code-django-screen.png)
+![Django Template - Starter provided by AppSeed.](https://raw.githubusercontent.com/app-generator/django-soft-ui-free/master/media/django-soft-ui-free-screen.png)
 
 <br />
 
@@ -38,8 +37,8 @@ PRO versions include **Premium UI Kits**, Lifetime updates and **24/7 LIVE Suppo
 
 ```bash
 $ # Get the code
-$ git clone https://github.com/app-generator/boilerplate-code-django.git
-$ cd boilerplate-code-django
+$ git clone https://github.com/app-generator/django-soft-ui-free.git
+$ cd django-soft-ui-free
 $
 $ # Virtualenv modules installation (Unix based systems)
 $ virtualenv env
@@ -147,8 +146,8 @@ The application can be easily executed in a docker container. The steps:
 > Get the code
 
 ```bash
-$ git clone https://github.com/app-generator/boilerplate-code-django.git
-$ cd boilerplate-code-django
+$ git clone https://github.com/app-generator/django-soft-ui-free.git
+$ cd django-soft-ui-free
 ```
 
 > Start the app in Docker
@@ -223,4 +222,4 @@ Visit `http://localhost:8001` in your browser. The app should be up & running.
 <br />
 
 ---
-[Django Boilerplate](https://appseed.us/boilerplate-code/django-boilerplate) - Provided by **AppSeed** [App Generator](https://appseed.us/app-generator).
+[Django](https://appseed.us/admin-dashboards/django) Soft UI - Provided by **AppSeed** [App Generator](https://appseed.us/app-generator).
