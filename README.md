@@ -22,9 +22,9 @@
 
 PRO versions include **Premium UI Kits**, Lifetime updates and **24/7 LIVE Support** (via [Discord](https://discord.gg/fZC6hup))
 
-| [Flask Soft UI PRO](https://appseed.us/product/django-soft-ui-pro) | [Django Material PRO](https://appseed.us/admin-dashboards/django-dashboard-material-pro) | [Django Volt PRO](https://appseed.us/admin-dashboards/django-dashboard-volt-pro) |
+| [Django Soft UI PRO](https://appseed.us/product/django-soft-ui-pro) | [Django Material PRO](https://appseed.us/admin-dashboards/django-dashboard-material-pro) | [Django Volt PRO](https://appseed.us/admin-dashboards/django-dashboard-volt-pro) |
 | --- | --- | --- |
-| [![Flask Soft UI PRO](https://raw.githubusercontent.com/app-generator/soft-ui-design-system/main/media/soft-ui-design-system-screen.png)](https://appseed.us/product/django-soft-ui-pro) | [![Django Material PRO](https://raw.githubusercontent.com/app-generator/django-dashboard-material-pro/master/media/django-dashboard-material-pro-screen.png)](https://appseed.us/admin-dashboards/django-dashboard-material-pro) | [![Django Volt PRO](https://raw.githubusercontent.com/app-generator/django-dashboard-volt-pro/master/media/django-dashboard-volt-pro-screen.png)](https://appseed.us/admin-dashboards/django-dashboard-volt-pro)
+| [![Django Soft UI PRO](https://raw.githubusercontent.com/app-generator/soft-ui-design-system/main/media/soft-ui-design-system-screen.png)](https://appseed.us/product/django-soft-ui-pro) | [![Django Material PRO](https://raw.githubusercontent.com/app-generator/django-dashboard-material-pro/master/media/django-dashboard-material-pro-screen.png)](https://appseed.us/admin-dashboards/django-dashboard-material-pro) | [![Django Volt PRO](https://raw.githubusercontent.com/app-generator/django-dashboard-volt-pro/master/media/django-dashboard-volt-pro-screen.png)](https://appseed.us/admin-dashboards/django-dashboard-volt-pro)
 
 <br />
 <br />
