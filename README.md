@@ -1,6 +1,8 @@
 # [Soft UI Design System](https://appseed.us/ui-kit/soft-ui-design-system) Django
 
-> Template [boilerplate code](https://appseed.us/boilerplate-code) used by [AppSeed](https://appseed.us) to generate simple admin dashboards coded in [Django](https://www.djangoproject.com/) - Features:
+**[Soft UI Design System](https://appseed.us/ui-kit/soft-ui-design-system)** is a Premium Bootstrap 5 UI Kit designed by [Creative-Tim](https://bit.ly/3fKQZaL) designed for those who like bold elements and beautiful websites. **Soft UI Design System Django**  is a simple Django seed project provided by AppSeed with a modular codebase, database, authentication and deployment scripts - Features:
+
+<br />
 
 - UI Kit: **Soft UI Design System** (Free Version) by **Creative-Tim**
 - SQLite Database, Django Native ORM
