@@ -8,7 +8,6 @@
 - [SCSS compilation](#recompile-css) via **Gulp**
 - UI Kit: **Soft UI Design System** (Free Version) by **Creative-Tim**
 - `DB Tools`: SQLite Database, Django Native ORM
-- Modular design, clean codebase
 - Session-Based Authentication, Forms validation
 - `Deployment`: Docker, Gunicorn / Nginx
 - Support via **Github** (issues tracker) and [Discord](https://discord.gg/fZC6hup).
@@ -17,8 +16,9 @@
 
 > Links
 
-- [Soft UI Design Django](https://appseed.us/product/django-soft-ui-design-system) - Product page
-- [Soft UI Design Django](https://django-soft-ui-free.appseed-srv1.com/) - LIVE Demo
+- 👉 [Soft UI Design Django](https://appseed.us/product/django-soft-ui-design-system) - Product page
+- 👉 [Soft UI Design Django](https://django-soft-ui-free.appseed-srv1.com/) - LIVE Demo
+- 👉 More [Django Apps](https://appseed.us/django) - provided by AppSeed 
 
 <br />
 
