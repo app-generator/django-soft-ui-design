@@ -1,34 +1,44 @@
-# [Soft UI Design System](https://appseed.us/ui-kit/soft-ui-design-system) Django
+# [Soft UI Design Django](https://appseed.us/product/django-soft-ui-design-system)
 
 **[Soft UI Design System](https://appseed.us/ui-kit/soft-ui-design-system)** is a Premium Bootstrap 5 UI Kit designed by [Creative-Tim](https://bit.ly/3fKQZaL) designed for those who like bold elements and beautiful websites. **Soft UI Design System Django**  is a simple Django seed project provided by AppSeed with a modular codebase, database, authentication and deployment scripts - Features:
 
 <br />
 
+- `Up-to-date dependencies`: **Django 3.2.6 LTS**
+- [SCSS compilation](#recompile-css) via **Gulp**
 - UI Kit: **Soft UI Design System** (Free Version) by **Creative-Tim**
-- SQLite Database, Django Native ORM
+- `DB Tools`: SQLite Database, Django Native ORM
 - Modular design, clean codebase
 - Session-Based Authentication, Forms validation
-- Deployment scripts: Docker, Gunicorn / Nginx
+- `Deployment`: Docker, Gunicorn / Nginx
 - Support via **Github** (issues tracker) and [Discord](https://discord.gg/fZC6hup).
 
 <br />
 
 > Links
 
-- [Soft UI Design System Django](https://appseed.us/product/django-soft-ui-design-system) - product page
-- [Soft UI Design System Django](https://django-soft-ui-free.appseed-srv1.com/) - LIVE Demo
+- [Soft UI Design Django](https://appseed.us/product/django-soft-ui-design-system) - Product page
+- [Soft UI Design Django](https://django-soft-ui-free.appseed-srv1.com/) - LIVE Demo
 
 <br />
 
-## Want more? Go PRO!
+## Quick Start in [Docker](https://www.docker.com/)
 
-PRO versions include **Premium UI Kits**, Lifetime updates and **24/7 LIVE Support** (via [Discord](https://discord.gg/fZC6hup))
+> Get the code
 
-| [Django Soft UI PRO](https://appseed.us/product/django-soft-ui-pro) | [Django Material PRO](https://appseed.us/admin-dashboards/django-dashboard-material-pro) | [Django Volt PRO](https://appseed.us/admin-dashboards/django-dashboard-volt-pro) |
-| --- | --- | --- |
-| [![Django Soft UI PRO](https://raw.githubusercontent.com/app-generator/soft-ui-design-system/main/media/soft-ui-design-system-screen.png)](https://appseed.us/product/django-soft-ui-pro) | [![Django Material PRO](https://raw.githubusercontent.com/app-generator/django-dashboard-material-pro/master/media/django-dashboard-material-pro-screen.png)](https://appseed.us/admin-dashboards/django-dashboard-material-pro) | [![Django Volt PRO](https://raw.githubusercontent.com/app-generator/django-dashboard-volt-pro/master/media/django-dashboard-volt-pro-screen.png)](https://appseed.us/admin-dashboards/django-dashboard-volt-pro)
+```bash
+$ git clone https://github.com/app-generator/django-soft-ui-design.git
+$ cd django-soft-ui-design
+```
 
-<br />
+> Start the app in Docker
+
+```bash
+$ docker-compose up --build 
+```
+
+Visit `http://localhost:85` in your browser. The app should be up & running.
+
 <br />
 
 ![Django Template - Starter provided by AppSeed.](https://raw.githubusercontent.com/app-generator/django-soft-ui-free/master/media/django-soft-ui-free-screen.png)
@@ -39,8 +49,8 @@ PRO versions include **Premium UI Kits**, Lifetime updates and **24/7 LIVE Suppo
 
 ```bash
 $ # Get the code
-$ git clone https://github.com/app-generator/django-soft-ui-free.git
-$ cd django-soft-ui-free
+$ git clone https://github.com/app-generator/django-soft-ui-design.git
+$ cd django-soft-ui-design
 $
 $ # Virtualenv modules installation (Unix based systems)
 $ virtualenv env
@@ -77,50 +87,49 @@ The project is coded using a simple and intuitive structure presented bellow:
 ```bash
 < PROJECT ROOT >
    |
-   |-- core/                               # Implements app logic and serve the static assets
-   |    |-- settings.py                    # Django app bootstrapper
+   |-- core/                               # Implements app configuration
+   |    |-- settings.py                    # Defines Global Settings
    |    |-- wsgi.py                        # Start the app in production
    |    |-- urls.py                        # Define URLs served by all apps/nodes
+   |
+   |-- apps/
+   |    |
+   |    |-- home/                          # A simple app that serve HTML files
+   |    |    |-- views.py                  # Serve HTML pages for authenticated users
+   |    |    |-- urls.py                   # Define some super simple routes  
+   |    |
+   |    |-- authentication/                # Handles auth routes (login and register)
+   |    |    |-- urls.py                   # Define authentication routes  
+   |    |    |-- views.py                  # Handles login and registration  
+   |    |    |-- forms.py                  # Define auth forms (login and register) 
    |    |
    |    |-- static/
    |    |    |-- <css, JS, images>         # CSS files, Javascripts files
    |    |
    |    |-- templates/                     # Templates used to render pages
-   |         |
    |         |-- includes/                 # HTML chunks and components
    |         |    |-- navigation.html      # Top menu component
    |         |    |-- sidebar.html         # Sidebar component
    |         |    |-- footer.html          # App Footer
    |         |    |-- scripts.html         # Scripts common to all pages
    |         |
-   |         |-- layouts/                  # Master pages
-   |         |    |-- base-fullscreen.html # Used by Authentication pages
-   |         |    |-- base.html            # Used by common pages
+   |         |-- layouts/                   # Master pages
+   |         |    |-- base-fullscreen.html  # Used by Authentication pages
+   |         |    |-- base.html             # Used by common pages
    |         |
-   |         |-- accounts/                 # Authentication pages
-   |         |    |-- login.html           # Login page
-   |         |    |-- register.html        # Register page
+   |         |-- accounts/                  # Authentication pages
+   |         |    |-- login.html            # Login page
+   |         |    |-- register.html         # Register page
    |         |
-   |      index.html                       # The default page
-   |     page-404.html                     # Error 404 page
-   |     page-500.html                     # Error 404 page
-   |       *.html                          # All other HTML pages
+   |         |-- home/                      # UI Kit Pages
+   |              |-- index.html            # Index page
+   |              |-- 404-page.html         # 404 page
+   |              |-- *.html                # All other pages
    |
-   |-- authentication/                     # Handles auth routes (login and register)
-   |    |
-   |    |-- urls.py                        # Define authentication routes  
-   |    |-- views.py                       # Handles login and registration  
-   |    |-- forms.py                       # Define auth forms  
+   |-- requirements.txt                     # Development modules - SQLite storage
    |
-   |-- app/                                # A simple app that serve HTML files
-   |    |
-   |    |-- views.py                       # Serve HTML pages for authenticated users
-   |    |-- urls.py                        # Define some super simple routes  
-   |
-   |-- requirements.txt                    # Development modules - SQLite storage
-   |
-   |-- .env                                # Inject Configuration via Environment
-   |-- manage.py                           # Start the app - Django default start script
+   |-- .env                                 # Inject Configuration via Environment
+   |-- manage.py                            # Start the app - Django default start script
    |
    |-- ************************************************************************
 ```
@@ -136,41 +145,52 @@ The project is coded using a simple and intuitive structure presented bellow:
 
 <br />
 
-## Deployment
+## Recompile CSS
 
-The app is provided with a basic configuration to be executed in [Docker](https://www.docker.com/), [Gunicorn](https://gunicorn.org/), and [Waitress](https://docs.pylonsproject.org/projects/waitress/en/stable/).
+To recompile SCSS files, follow this setup:
 
-### [Docker](https://www.docker.com/) execution
----
+<br />
 
-The application can be easily executed in a docker container. The steps:
+**Step #1** - Install tools
 
-> Get the code
+- [NodeJS](https://nodejs.org/en/) 12.x or higher
+- [Gulp](https://gulpjs.com/) - globally 
+    - `npm install -g gulp-cli`
+- [Yarn](https://yarnpkg.com/) (optional) 
 
-```bash
-$ git clone https://github.com/app-generator/django-soft-ui-free.git
-$ cd django-soft-ui-free
-```
+<br />
 
-> Start the app in Docker
-
-```bash
-$ sudo docker-compose pull && sudo docker-compose build && sudo docker-compose up -d
-```
-
-Visit `http://localhost:5005` in your browser. The app should be up & running.
-
-> Create Django `superuser` 
+**Step #2** - Change the working directory to `assets` folder
 
 ```bash
-$ # Get Container ID
-$ docker ps
-$ 
-$ # Call docker exec and CREATE the Superuser
-$ docker exec -it <APPSEED_CONTAINER_ID> python manage.py createsuperuser
+$ cd apps/static/assets
 ```
 
 <br />
+
+**Step #3** - Install modules (this will create a classic `node_modules` directory)
+
+```bash
+$ npm install
+// OR
+$ yarn
+```
+
+<br />
+
+**Step #4** - Edit & Recompile SCSS files 
+
+```bash
+$ gulp scss
+```
+
+The generated file is saved in `static/assets/css` directory.
+
+<br /> 
+
+## Deployment
+
+The app is provided with a basic configuration to be executed in [Docker](https://www.docker.com/), [Gunicorn](https://gunicorn.org/), and [Waitress](https://docs.pylonsproject.org/projects/waitress/en/stable/).
 
 ### [Gunicorn](https://gunicorn.org/)
 ---
@@ -232,4 +252,4 @@ You will save a lot of time going from prototyping to full-functional code, beca
 <br />
 
 ---
-[Soft UI Design System](https://appseed.us/ui-kit/soft-ui-design-system) Django - Provided by **AppSeed** [App Generator](https://appseed.us/app-generator).
+[Soft UI Design Django](https://appseed.us/product/django-soft-ui-design-system) - Provided by **AppSeed** [App Generator](https://appseed.us/app-generator).
