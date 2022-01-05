@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.0.2] 2021-01-05
+### Improvements (minor)
+
+- Update Product Links
+- Fix Broken Links
 
 ## [1.0.1] 2020-12-12
 ### Improvements
