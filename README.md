@@ -4,7 +4,7 @@
 
 <br />
 
-- `Up-to-date dependencies`: **Django 3.2.6 LTS**
+- `Up-to-date dependencies`
 - [SCSS compilation](#recompile-css) via **Gulp**
 - UI Kit: **Soft UI Design System** (Free Version) by **Creative-Tim**
 - `DB Tools`: SQLite Database, Django Native ORM
