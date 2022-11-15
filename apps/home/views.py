@@ -5,14 +5,32 @@ Copyright (c) 2019 - present AppSeed.us
 
 from django import template
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views import generic
+
+from apps.home.models import Worker, Task, TaskType
 
 
 @login_required(login_url="/login/")
 def index(request):
-    context = {'segment': 'index'}
+
+    num_workers = Worker.objects.count()
+    num_tasks = Task.objects.count()
+    num_task_types = TaskType.objects.count()
+
+    num_visits = request.session.get("num_visits", 0)
+    request.session["num_visits"] = num_visits + 1
+
+    context = {
+               'segment': 'index',
+               "num_workers": num_workers,
+               "num_tasks": num_tasks,
+               "num_task_types": num_task_types,
+               "num_visits": num_visits,
+               }
 
     html_template = loader.get_template('home/index.html')
     return HttpResponse(html_template.render(context, request))
@@ -42,3 +60,25 @@ def pages(request):
     except:
         html_template = loader.get_template('home/page-500.html')
         return HttpResponse(html_template.render(context, request))
+
+
+class WorkerListView(LoginRequiredMixin, generic.ListView):
+    model = Worker
+    # template_name =
+    paginate_by = 2
+
+
+class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Worker
+    queryset = Worker.objects.all().select_related("position")
+
+
+class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Worker
+    #form_class = WorkerCreationForm
+    success_url = reverse_lazy("tasks:worker-list")
+
+
+class DriverDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Worker
+    success_url = reverse_lazy("tasks:worker-list")
