@@ -7,6 +7,7 @@ from django import template
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect
 from django.template import loader
 from django.urls import reverse, reverse_lazy
 from django.views import generic
@@ -75,10 +76,17 @@ class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
 
 class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     model = Worker
-    #form_class = WorkerCreationForm
+    form_class = WorkerCreationForm
     success_url = reverse_lazy("tasks:worker-list")
 
 
 class DriverDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Worker
     success_url = reverse_lazy("tasks:worker-list")
+
+
+@login_required
+def delete_worker(request, pk):
+    worker = Worker.objects.get(id=pk)
+    worker.delete()
+    return redirect("home:worker-list")
