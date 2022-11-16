@@ -46,10 +46,16 @@ Coded by www.creative-tim.com
     {% include "includes/navigation.html" %}
 
     {% block content %}{% endblock content %}
+
+    {% block pagination %}
+        {% include "includes/pagination.html" %}
+    {% endblock %}
   
     {% include "includes/footer.html" %}
 
     {% include "includes/scripts.html" %}
+
+
 
   <!-- Specific JS goes HERE --> 
   {% block javascripts %}{% endblock javascripts %}
