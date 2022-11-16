@@ -66,8 +66,7 @@ def pages(request):
 
 class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
-    # template_name =
-    paginate_by = 2
+    paginate_by = 3
 
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
