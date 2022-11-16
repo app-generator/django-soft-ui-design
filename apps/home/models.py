@@ -53,6 +53,10 @@ class Task(models.Model):
     task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE)
     assignees = models.ManyToManyField(Worker, related_name="tasks")
 
+    class Meta:
+
+        ordering = ["is_completed"]
+
     def __str__(self):
         return self.name
 
