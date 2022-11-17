@@ -39,10 +39,10 @@ class TaskType(models.Model):
 class Task(models.Model):
 
     PRIORITY_CHOICES = {
-        ("1", "Urgent"),
-        ("2", "High"),
-        ("3", "Medium"),
-        ("4", "Low")
+        ("Urgent", "Urgent"),
+        ("High", "High"),
+        ("Medium", "Medium"),
+        ("Low", "Low")
     }
 
     name = models.CharField(max_length=255, unique=True)
@@ -55,8 +55,12 @@ class Task(models.Model):
 
     class Meta:
 
-        ordering = ["is_completed"]
+        ordering = ["is_completed", "priority"]
+
+    def get_absolute_url(self):
+        return reverse("home:task-detail", kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.name
+
 

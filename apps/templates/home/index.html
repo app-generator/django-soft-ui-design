@@ -61,7 +61,7 @@
             <div class="col-md-4 position-relative">
               <div class="p-3 text-center">
                 <h1 class="text-gradient text-primary"> <span id="state2" countTo={{ num_tasks }}>0</span>+</h1>
-                <h5 class="mt-3">Task{{ num_tasks|pluralize }}</h5>
+                  <h5 class="mt-3"><a href="{% url 'home:task-list'%}">Task{{ num_tasks|pluralize }}</a></h5>
                 <p class="text-sm">All tasks are sorted by priority for efficient meeting of deadlines</p>
               </div>
               <hr class="vertical dark">

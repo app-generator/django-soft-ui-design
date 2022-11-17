@@ -80,6 +80,22 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("home:worker-list")
 
 
+class TaskListView(LoginRequiredMixin, generic.ListView):
+    model = Task
+    #paginate_by = 3
+
+
+class TaskDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Task
+    queryset = Worker.objects.all().select_related("task_type").prefetch_related("assignees")
+
+
+class TaskCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Task
+    #form_class = TaskCreationForm
+    success_url = reverse_lazy("home:task-list")
+
+
 @login_required
 def delete_worker(request, pk):
     worker = Worker.objects.get(id=pk)
