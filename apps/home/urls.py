@@ -19,7 +19,7 @@ urlpatterns = [
     path("<int:pk>", delete_worker, name="worker-delete"),
 
     path("tasks/", TaskListView.as_view(), name="task-list"),
-    # path("tasks/<int:pk>/", TaskDetailView.as_view(), name="task-detail"),
+    path("tasks/<int:pk>/", TaskDetailView.as_view(), name="task-detail"),
     # path("tasks/create/", TaskCreateView.as_view(), name="task-create"),
     path("<int:pk1>/<int:pk2>", change_task_status, name="change-task-status"),
     # Matches any html file
