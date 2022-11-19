@@ -82,7 +82,7 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
-    #paginate_by = 3
+    paginate_by = 3
 
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
