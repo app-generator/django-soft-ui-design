@@ -87,7 +87,7 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
-    queryset = Worker.objects.all().select_related("task_type").prefetch_related("assignees")
+    queryset = Task.objects.all().select_related("task_type").prefetch_related("assignees")
 
 
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
@@ -110,3 +110,12 @@ def change_task_status(request, pk1, pk2):
     task.save()
     return redirect(reverse("home:worker-detail", kwargs={'pk': pk2}))
 
+
+@login_required
+def assign_to_task(request, pk):
+    current_user = request.user
+    if current_user in Task.objects.get(id=pk).assignees.all():
+        Task.objects.get(id=pk).assignees.remove(current_user)
+    else:
+        Task.objects.get(id=pk).assignees.add(current_user)
+    return redirect(reverse("home:task-detail", kwargs={'pk': pk}))
