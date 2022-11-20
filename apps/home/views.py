@@ -12,13 +12,12 @@ from django.template import loader
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 
-from apps.home.forms import WorkerCreationForm
+from apps.home.forms import WorkerCreationForm, TaskCreationForm, TaskUpdateForm, TaskSearchForm
 from apps.home.models import Worker, Task, TaskType
 
 
 @login_required(login_url="/login/")
 def index(request):
-
     num_workers = Worker.objects.count()
     num_tasks = Task.objects.count()
     num_task_types = TaskType.objects.count()
@@ -27,12 +26,12 @@ def index(request):
     request.session["num_visits"] = num_visits + 1
 
     context = {
-               'segment': 'index',
-               "num_workers": num_workers,
-               "num_tasks": num_tasks,
-               "num_task_types": num_task_types,
-               "num_visits": num_visits,
-               }
+        'segment': 'index',
+        "num_workers": num_workers,
+        "num_tasks": num_tasks,
+        "num_task_types": num_task_types,
+        "num_visits": num_visits,
+    }
 
     html_template = loader.get_template('home/index.html')
     return HttpResponse(html_template.render(context, request))
@@ -83,6 +82,27 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     paginate_by = 3
+    queryset = Task.objects.all().select_related("task_type")
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        contex = super(TaskListView, self).get_context_data(**kwargs)
+        contex["search_form"] = TaskSearchForm()
+
+        task_type = self.request.GET.get("task_type", "")
+
+        contex["search_form"] = TaskSearchForm(initial={
+            "task_type": task_type
+        })
+
+        return contex
+
+    def get_queryset(self):
+        form = TaskSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return self.queryset.filter(
+                task_type__name__icontains=form.cleaned_data["task_type"]
+            )
 
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
@@ -92,7 +112,13 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
 
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
-    #form_class = TaskCreationForm
+    form_class = TaskCreationForm
+    success_url = reverse_lazy("home:task-list")
+
+
+class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Task
+    form_class = TaskUpdateForm
     success_url = reverse_lazy("home:task-list")
 
 
@@ -119,3 +145,10 @@ def assign_to_task(request, pk):
     else:
         Task.objects.get(id=pk).assignees.add(current_user)
     return redirect(reverse("home:task-detail", kwargs={'pk': pk}))
+
+
+@login_required
+def delete_task(request, pk):
+    task = Task.objects.get(id=pk)
+    task.delete()
+    return redirect("home:task-list")
