@@ -12,8 +12,8 @@ from django.template import loader
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 
-from apps.home.forms import WorkerCreationForm, TaskCreationForm, TaskUpdateForm, TaskSearchForm
-from apps.home.models import Worker, Task, TaskType
+from apps.home.forms import WorkerCreationForm, TaskCreationForm, TaskUpdateForm, TaskSearchForm, TaskTypeCreationForm
+from apps.home.models import Worker, Task, TaskType, Position
 
 
 @login_required(login_url="/login/")
@@ -21,6 +21,7 @@ def index(request):
     num_workers = Worker.objects.count()
     num_tasks = Task.objects.count()
     num_task_types = TaskType.objects.count()
+    num_positions = Position.objects.count()
 
     num_visits = request.session.get("num_visits", 0)
     request.session["num_visits"] = num_visits + 1
@@ -30,6 +31,7 @@ def index(request):
         "num_workers": num_workers,
         "num_tasks": num_tasks,
         "num_task_types": num_task_types,
+        "num_positions": num_positions,
         "num_visits": num_visits,
     }
 
@@ -122,6 +124,24 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("home:task-list")
 
 
+class TaskTypeListView(LoginRequiredMixin, generic.ListView):
+    model = TaskType
+    paginate_by = 3
+    queryset = TaskType.objects.all()
+
+
+class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
+    model = TaskType
+    form_class = TaskTypeCreationForm
+    success_url = reverse_lazy("home:task-type-list")
+
+
+class PositionListView(LoginRequiredMixin, generic.ListView):
+    model = Position
+    paginate_by = 3
+    queryset = Position.objects.all()
+
+
 @login_required
 def delete_worker(request, pk):
     worker = Worker.objects.get(id=pk)
@@ -152,3 +172,10 @@ def delete_task(request, pk):
     task = Task.objects.get(id=pk)
     task.delete()
     return redirect("home:task-list")
+
+
+@login_required
+def delete_task_type(request, pk):
+    task_type = TaskType.objects.get(id=pk)
+    task_type.delete()
+    return redirect("home:task-type-list")
