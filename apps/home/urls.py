@@ -6,7 +6,8 @@ Copyright (c) 2019 - present AppSeed.us
 from django.urls import path, re_path
 from apps.home import views
 from apps.home.views import WorkerListView, WorkerDetailView, delete_worker, WorkerCreateView, change_task_status, \
-    TaskListView, TaskDetailView, TaskCreateView, assign_to_task, TaskUpdateView, delete_task
+    TaskListView, TaskDetailView, TaskCreateView, assign_to_task, TaskUpdateView, delete_task, TaskTypeListView, \
+    delete_task_type, TaskTypeCreateView, PositionListView
 
 urlpatterns = [
 
@@ -25,6 +26,12 @@ urlpatterns = [
     path("tasks/status/<int:pk1>/<int:pk2>/", change_task_status, name="change-task-status"),
     path("tasks/assign/<int:pk>/", assign_to_task, name="assign-to-task"),
     path("tasks/delete/<int:pk>/", delete_task, name="task-delete"),
+    path("tasktypes/create/", TaskTypeCreateView.as_view(), name="task-type-create"),
+
+    path("tasktypes/", TaskTypeListView.as_view(), name="task-type-list"),
+    path("tasktypes/delete/<int:pk>/", delete_task_type, name="task-type-delete"),
+
+    path("positions/", PositionListView.as_view(), name="position-list"),
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),
 
