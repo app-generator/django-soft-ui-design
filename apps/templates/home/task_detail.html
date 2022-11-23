@@ -1,0 +1,57 @@
+{% extends 'layouts/base-presentation.html' %}
+
+{% block content %}
+    <div class="container" style="margin-top: 100px">
+        <h1 class="text-primary">
+            Task: {{ task.name }}
+            {% if user in task.assignees.all %}
+                <a href="{% url "home:assign-to-task" pk=task.id %}" class="btn bg-gradient-secondary w-auto me-1 mb-0">
+                    Remove me from this task
+                </a>
+            {% else %}
+                <a href="{% url "home:assign-to-task" pk=task.id %}" class="btn bg-gradient-primary w-auto me-1 mb-0">
+                    Assign me to this task
+                </a>
+            {% endif %}
+        </h1>
+        <hr>
+
+        <p><strong>Description:</strong> {{ task.description }}</p>
+        <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+        <p><strong>Status:</strong> {{ task.is_completed|yesno:"DONE, NOT DONE" }}</p>
+        <p><strong>Priority:</strong> {{ task.get_priority_display }}</p>
+        <p><strong>Task Type:</strong> {{ task.task_type }}</p>
+        <p><strong>Workers:</strong> {% for worker in task.assignees.all %}{{ worker.username }}, {% endfor %}</p>
+
+        <p>
+            <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Delete
+            </button>
+            <button type="button" onclick="window.location.href='{% url 'home:task-update' pk=task.id %}';" class="btn bg-gradient-light">
+                Update
+            </button>
+        </p>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">DELETE TASK</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete the following task:<br>{{ task.name }}?
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">No</button>
+                    <a href="{% url "home:task-delete" pk=task.id %}" class="btn bg-gradient-primary">Yes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
