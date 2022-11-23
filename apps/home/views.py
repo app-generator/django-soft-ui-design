@@ -12,7 +12,8 @@ from django.template import loader
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 
-from apps.home.forms import WorkerCreationForm, TaskCreationForm, TaskUpdateForm, TaskSearchForm, TaskTypeCreationForm
+from apps.home.forms import WorkerCreationForm, TaskCreationForm, TaskUpdateForm, TaskSearchForm, TaskTypeCreationForm, \
+    PositionCreationForm, TaskTypeUpdateForm
 from apps.home.models import Worker, Task, TaskType, Position
 
 
@@ -67,7 +68,7 @@ def pages(request):
 
 class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
-    paginate_by = 3
+    paginate_by = 5
 
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
@@ -83,7 +84,7 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
-    paginate_by = 3
+    paginate_by = 5
     queryset = Task.objects.all().select_related("task_type")
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -126,7 +127,7 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class TaskTypeListView(LoginRequiredMixin, generic.ListView):
     model = TaskType
-    paginate_by = 3
+    paginate_by = 5
     queryset = TaskType.objects.all()
 
 
@@ -136,11 +137,22 @@ class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("home:task-type-list")
 
 
+class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = TaskType
+    form_class = TaskTypeUpdateForm
+    success_url = reverse_lazy("home:task-type-list")
+
+
 class PositionListView(LoginRequiredMixin, generic.ListView):
     model = Position
-    paginate_by = 3
+    paginate_by = 5
     queryset = Position.objects.all()
 
+
+class PositionCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Position
+    form_class = PositionCreationForm
+    success_url = reverse_lazy("home:position-list")
 
 @login_required
 def delete_worker(request, pk):

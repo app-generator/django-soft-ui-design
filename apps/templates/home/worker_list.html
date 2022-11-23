@@ -1,0 +1,51 @@
+{% extends 'layouts/base-presentation.html' %}
+
+{% block title %} Workers {% endblock title %}
+
+{% block content %}
+
+    <div class="container" style="margin-top: 100px">
+        <h1 class="text-primary">
+            Worker List
+            <a href="{% url 'home:worker-create' %}" class="btn bg-gradient-primary w-auto mb-0" >
+                +Add
+            </a>
+        </h1>
+
+        {% if worker_list %}
+            <table class="table table-hover">
+                <thead style="background: #F1F1F1">
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Position</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for worker in worker_list %}
+                    <tr>
+                        <td>{{ worker.id }}</td>
+                        <td><a href="{{ worker.get_absolute_url }}">{{ worker.username }} {% if user == worker %}
+                            (Me){% endif %}</a></td>
+                        <td>{{ worker.first_name }}</td>
+                        <td>{{ worker.last_name }}</td>
+                        <td>{{ worker.position }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>There are no workers in the company.</p>
+        {% endif %}
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+    <script src="{{ ASSETS_ROOT }}/js/soft-design-system.min.js?v=1.0.1" type="text/javascript"></script>
+
+{% endblock javascripts %}

@@ -1,0 +1,193 @@
+{% extends 'layouts/base-presentation.html' %}
+
+{% block content %}
+    <div class="container" style="margin-top: 100px">
+    <h1 class="text-primary">
+        Worker: {{ worker.username }}
+        <button type="button" class="btn bg-gradient-primary w-auto mb-0" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+            Delete worker
+        </button>
+    </h1>
+    <hr>
+    <p><strong>First name:</strong> {{ worker.first_name }}</p>
+    <p><strong>Last name:</strong> {{ worker.last_name }}</p>
+    <p>
+        <strong>Position:</strong> {{ worker.position }}
+    </p>
+    <div class="row" >
+    <div class="col-12">
+    <div class="card mb-4">
+        <div class="card-header pb-0">
+            <h3 class="text-primary">Tasks to be completed</h3>
+        </div>
+        {% if worker.tasks.all %}
+            <table class="table table-hover">
+            <thead style="background: #F1F1F1; border-radius: 2rem">
+            <colgroup>
+                <col style="width: 16%"/>
+                <col style="width: 16%"/>
+                <col style="width: 16%"/>
+                <col style="width: 16%"/>
+                <col style="width: 16%"/>
+                <col style="width: 16%"/>
+            </colgroup>
+            <tr>
+                <th>Task</th>
+                <th>Description</th>
+                <th>Task type</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Change status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for task in worker.tasks.all %}
+                {% if not task.is_completed %}
+                    <tr>
+                        <td>{{ task.name }}</td>
+                        <td>
+                            <button type="button" class="btn bg-gradient-secondary mb-0" data-bs-container="body"
+                                    data-bs-toggle="popover" data-bs-placement="top"
+                                    data-bs-content="{{ task.description }}">
+                                📝
+                            </button>
+                        </td>
+                        <td>{{ task.type }}</td>
+                        <td>
+                            {% if task.priority == 1 %}
+                                <span class="badge bg-gradient-danger">{{ task.get_priority_display }}</span>
+                            {% elif task.priority == 2 %}
+                                <span class="badge bg-gradient-dark">{{ task.get_priority_display }}</span>
+                            {% elif task.priority == 3 %}
+                                <span class="badge bg-gradient-secondary">{{ task.get_priority_display }}</span>
+                            {% elif task.priority == 4 %}
+                                <span class="badge bg-gradient-light text-dark">{{ task.get_priority_display }}</span>
+                            {% endif %}
+                        </td>
+                        <td><span style="color:red">Not done</span></td>
+                        <td><a href="{% url 'home:change-task-status' pk1=task.id pk2=worker.id %}"
+                               class="btn bg-gradient-primary w-auto me-1 mb-0">
+                            Complete
+                        </a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>ALL DONE! RELAX :)</p>
+        {% endif %}
+        </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-12">
+    <div class="card mb-4">
+        <div class="card-header pb-0">
+            <h3 class="text-primary">Completed tasks</h3>
+        </div>
+        {% if worker.tasks.all %}
+            <table class="table table-hover">
+            <thead style="background: #F1F1F1">
+            <colgroup>
+                <col style="width: 16%"/>
+                <col style="width: 16%"/>
+                <col style="width: 16%"/>
+                <col style="width: 16%"/>
+                <col style="width: 16%"/>
+                <col style="width: 16%"/>
+            </colgroup>
+            <tr>
+                <th>Task</th>
+                <th>Description</th>
+                <th>Task type</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Change status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for task in worker.tasks.all %}
+                {% if task.is_completed %}
+                    <tr>
+                        <td>{{ task.name }}</td>
+                        <td>
+                            <button type="button" class="btn bg-gradient-secondary mb-0" data-bs-container="body"
+                                    data-bs-toggle="popover" data-bs-placement="top"
+                                    data-bs-content="{{ task.description }}">
+                                📝
+                            </button>
+                        </td>
+                        <td>{{ task.type }}</td>
+                        <td>
+                            {% if task.priority == 1 %}
+                                <span class="badge bg-gradient-danger">Urgent</span>
+                            {% elif task.priority == 2 %}
+                                <span class="badge bg-gradient-dark">High</span>
+                            {% elif task.priority == 3 %}
+                                <span class="badge bg-gradient-secondary">Medium</span>
+                            {% elif task.priority == 4 %}
+                                <span class="badge bg-gradient-light text-dark">Low</span>
+                            {% endif %}
+                        </td>
+                        <td><span style="color:green">Completed</span></td>
+                        <td><a href="{% url 'home:change-task-status' pk1=task.id pk2=worker.id %}"
+                               class="btn bg-gradient-secondary w-auto me-1 mb-0">
+                            Undo
+                        </a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">DELETE WORKER</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to remove {{ worker.username }} from the list of workers?
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">No</button>
+                    <a href="{% url "home:worker-delete" pk=worker.id %}" class="btn bg-gradient-primary">Yes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    {#    <div class="bottom-0">#}
+    {#        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"#}
+    {#             viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">#}
+    {#            <defs>#}
+    {#                <path id="gentle-wave"#}
+    {#                      d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/>#}
+    {#            </defs>#}
+    {#            <g class="moving-waves">#}
+    {#                <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(230, 230, 250,0.40)"/>#}
+    {#                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(230, 230, 250,0.35)"/>#}
+    {#                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(230, 230, 250,0.25)"/>#}
+    {#                <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(230, 230, 250,0.20)"/>#}
+    {#                <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(230, 230, 250,0.15)"/>#}
+    {#                <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(230, 230, 250,0.95"/>#}
+    {#            </g>#}
+    {#        </svg>#}
+    {#    </div>#}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl)
+        })
+    </script>
+{% endblock javascripts %}

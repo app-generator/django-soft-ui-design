@@ -7,7 +7,7 @@ from django.urls import path, re_path
 from apps.home import views
 from apps.home.views import WorkerListView, WorkerDetailView, delete_worker, WorkerCreateView, change_task_status, \
     TaskListView, TaskDetailView, TaskCreateView, assign_to_task, TaskUpdateView, delete_task, TaskTypeListView, \
-    delete_task_type, TaskTypeCreateView, PositionListView
+    delete_task_type, TaskTypeCreateView, PositionListView, PositionCreateView, TaskTypeUpdateView
 
 urlpatterns = [
 
@@ -27,11 +27,13 @@ urlpatterns = [
     path("tasks/assign/<int:pk>/", assign_to_task, name="assign-to-task"),
     path("tasks/delete/<int:pk>/", delete_task, name="task-delete"),
     path("tasktypes/create/", TaskTypeCreateView.as_view(), name="task-type-create"),
+    path("tasktypes/<int:pk>/update/", TaskTypeUpdateView.as_view(), name="task-type-update"),
 
     path("tasktypes/", TaskTypeListView.as_view(), name="task-type-list"),
     path("tasktypes/delete/<int:pk>/", delete_task_type, name="task-type-delete"),
 
     path("positions/", PositionListView.as_view(), name="position-list"),
+    path("positions/create/", PositionCreateView.as_view(), name="position-create"),
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),
 
