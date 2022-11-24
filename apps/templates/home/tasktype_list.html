@@ -1,5 +1,7 @@
 {% extends 'layouts/base-presentation.html' %}
 
+{% block title %} Task Types {% endblock title %}
+
 {% block content %}
     <div class="container" style="margin-top: 100px">
         <h1 class="text-primary">
@@ -60,6 +62,7 @@
                                     </div>
                                 </div>
                             </div>
+                        </td>
                         <td>
                             <button type="button"
                                     onclick="window.location.href='{% url 'home:task-type-update' pk=tasktype.id %}';"
@@ -67,7 +70,7 @@
                                 &#8634;
                             </button>
                         </td>
-                        </td>
+
                     </tr>
 
                 {% endfor %}

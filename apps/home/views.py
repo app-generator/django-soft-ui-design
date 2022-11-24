@@ -13,7 +13,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic
 
 from apps.home.forms import WorkerCreationForm, TaskCreationForm, TaskUpdateForm, TaskSearchForm, TaskTypeCreationForm, \
-    PositionCreationForm, TaskTypeUpdateForm
+    PositionCreationForm, TaskTypeUpdateForm, PositionUpdateForm
 from apps.home.models import Worker, Task, TaskType, Position
 
 
@@ -154,6 +154,12 @@ class PositionCreateView(LoginRequiredMixin, generic.CreateView):
     form_class = PositionCreationForm
     success_url = reverse_lazy("home:position-list")
 
+
+class PositionUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Position
+    form_class = PositionUpdateForm
+    success_url = reverse_lazy("home:position-list")
+
 @login_required
 def delete_worker(request, pk):
     worker = Worker.objects.get(id=pk)
@@ -191,3 +197,10 @@ def delete_task_type(request, pk):
     task_type = TaskType.objects.get(id=pk)
     task_type.delete()
     return redirect("home:task-type-list")
+
+
+@login_required
+def delete_position(request, pk):
+    position = Position.objects.get(id=pk)
+    position.delete()
+    return redirect("home:position-list")
