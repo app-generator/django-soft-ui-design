@@ -4,14 +4,14 @@
 {% block title %} {{ object|yesno:"Update,Create" }} Worker {% endblock title %}
 
 {% block content %}
-  <div class="container" style="margin-top: 100px">
-  <h1 class="text-primary">Add Worker</h1>
-  <form action="" method="post" novalidate>
-    {% csrf_token %}
+    <div class="container" style="margin-top: 100px">
+        <h1 class="text-primary">Add Worker</h1>
+        <form action="" method="post" novalidate>
+            {% csrf_token %}
 
-    {{ form|crispy }}
+            {{ form|crispy }}
 
-    <input type="submit" value="Submit" class="btn bg-gradient-primary w-auto me-1 mb-0">
-  </form>
-  </div>
+            <input type="submit" value="Submit" class="btn bg-gradient-primary w-auto me-1 mb-0">
+        </form>
+    </div>
 {% endblock %}

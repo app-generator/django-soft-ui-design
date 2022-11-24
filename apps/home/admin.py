@@ -6,12 +6,7 @@ Copyright (c) 2019 - present AppSeed.us
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from apps.home.models import (
-    Worker,
-    Task,
-    TaskType,
-    Position
-)
+from apps.home.models import Worker, Task, TaskType, Position
 
 
 @admin.register(Worker)
@@ -21,7 +16,18 @@ class DriverAdmin(UserAdmin):
         (("Additional info", {"fields": ("position",)}),)
     )
     add_fieldsets = UserAdmin.add_fieldsets + (
-        (("Additional info", {"fields": ("first_name", "last_name", "position",)}),)
+        (
+            (
+                "Additional info",
+                {
+                    "fields": (
+                        "first_name",
+                        "last_name",
+                        "position",
+                    )
+                },
+            ),
+        )
     )
 
 

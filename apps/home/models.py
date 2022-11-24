@@ -26,7 +26,7 @@ class Worker(AbstractUser):
         return f"{self.username} ({self.first_name} {self.last_name})"
 
     def get_absolute_url(self):
-        return reverse("home:worker-detail", kwargs={'pk': self.pk})
+        return reverse("home:worker-detail", kwargs={"pk": self.pk})
 
 
 class TaskType(models.Model):
@@ -38,12 +38,7 @@ class TaskType(models.Model):
 
 class Task(models.Model):
 
-    PRIORITY_CHOICES = [
-        (1, "Urgent"),
-        (2, "High"),
-        (3, "Medium"),
-        (4, "Low")
-    ]
+    PRIORITY_CHOICES = [(1, "Urgent"), (2, "High"), (3, "Medium"), (4, "Low")]
 
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
@@ -58,9 +53,7 @@ class Task(models.Model):
         ordering = ["is_completed", "priority"]
 
     def get_absolute_url(self):
-        return reverse("home:task-detail", kwargs={'pk': self.pk})
+        return reverse("home:task-detail", kwargs={"pk": self.pk})
 
     def __str__(self):
         return self.name
-
-

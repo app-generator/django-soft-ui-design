@@ -6,29 +6,28 @@
     <div class="container" style="margin-top: 100px">
         <h1 class="text-primary">
             Task: {{ task.name }}
-
             <p style="display: inline-block">
-            <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Delete
-            </button>
+                <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                    Delete
+                </button>
             </p>
             <p style="display: inline-block">
-            <button type="button" onclick="window.location.href='{% url 'home:task-update' pk=task.id %}';" class="btn bg-gradient-light">
-                Update
-            </button>
-        </p>
+                <button type="button" onclick="window.location.href='{% url 'home:task-update' pk=task.id %}';"
+                        class="btn bg-gradient-light">
+                    Update
+                </button>
+            </p>
         </h1>
         <hr>
-
         <p><strong>Description:</strong> {{ task.description }}</p>
         <p><strong>Deadline:</strong> {{ task.deadline }}</p>
         <p><strong>Status:</strong> {{ task.is_completed|yesno:"DONE, NOT DONE" }}</p>
         <p><strong>Priority:</strong> {{ task.get_priority_display }}</p>
         <p><strong>Task Type:</strong> {{ task.task_type }}</p>
-{#        <p><strong>Workers:</strong> {% for worker in task.assignees.all %}{{ worker.username }}, {% endfor %}</p>#}
-    <h3 class="text-primary">
-        Assignees
-        {% if user in task.assignees.all %}
+        <h3 class="text-primary">
+            Assignees
+            {% if user in task.assignees.all %}
                 <a href="{% url "home:assign-to-task" pk=task.id %}" class="btn bg-gradient-secondary w-auto me-1 mb-0">
                     Remove me from this task
                 </a>
@@ -37,16 +36,14 @@
                     Assign me to this task
                 </a>
             {% endif %}
-    </h3>
-    <hr>
-    {% for assignee in task.assignees.all %}
-      <p><strong>Username: </strong>{{ assignee.username }}</p>
-      <p><strong>Full name: </strong>{{ assignee.first_name }} {{ assignee.last_name }}</p>
-      <p><strong>Position: </strong>{{ assignee.position }}</p>
-      <hr>
-  {% endfor %}
-
-
+        </h3>
+        <hr>
+        {% for assignee in task.assignees.all %}
+            <p><strong>Username: </strong>{{ assignee.username }}</p>
+            <p><strong>Full name: </strong>{{ assignee.first_name }} {{ assignee.last_name }}</p>
+            <p><strong>Position: </strong>{{ assignee.position }}</p>
+            <hr>
+        {% endfor %}
     </div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

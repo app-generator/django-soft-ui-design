@@ -6,17 +6,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0006_auto_20221116_1239'),
+        ("home", "0006_auto_20221116_1239"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='task',
-            options={'ordering': ['is_completed', 'priority']},
+            name="task",
+            options={"ordering": ["is_completed", "priority"]},
         ),
         migrations.AlterField(
-            model_name='task',
-            name='priority',
-            field=models.CharField(choices=[('Urgent', 'Urgent'), ('High', 'High'), ('Low', 'Low'), ('Medium', 'Medium')], max_length=6),
+            model_name="task",
+            name="priority",
+            field=models.CharField(
+                choices=[
+                    ("Urgent", "Urgent"),
+                    ("High", "High"),
+                    ("Low", "Low"),
+                    ("Medium", "Medium"),
+                ],
+                max_length=6,
+            ),
         ),
     ]

@@ -8,7 +8,7 @@ from .views import login_view, register_user
 from django.contrib.auth.views import logout_then_login
 
 urlpatterns = [
-    path('login/', login_view, name="login"),
-    path('register/', register_user, name="register"),
-    path("logout/", logout_then_login, name="logout")
+    path("login/", login_view, name="login"),
+    path("register/", register_user, name="register"),
+    path("logout/", logout_then_login, name="logout"),
 ]

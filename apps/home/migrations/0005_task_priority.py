@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0004_alter_worker_position'),
+        ("home", "0004_alter_worker_position"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='task',
-            name='priority',
-            field=models.CharField(choices=[('2', 'High'), ('3', 'Medium'), ('4', 'Low'), ('1', 'Urgent')], default='4', max_length=1),
+            model_name="task",
+            name="priority",
+            field=models.CharField(
+                choices=[("2", "High"), ("3", "Medium"), ("4", "Low"), ("1", "Urgent")],
+                default="4",
+                max_length=1,
+            ),
         ),
     ]

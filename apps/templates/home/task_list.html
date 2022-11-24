@@ -6,7 +6,6 @@
 {% block content %}
 
     <div class="container" style="margin-top: 100px">
-
         <h1 class="text-primary">
             Task List
             <a href="{% url 'home:task-create' %}" class="btn bg-gradient-primary w-auto me-1 mb-0">
@@ -41,7 +40,7 @@
                                     <td>{{ task.id }}</td>
                                     <td><a href="{{ task.get_absolute_url }}">{{ task.name }}</a></td>
                                     <td>{{ task.deadline }}</td>
-                                    <td>{{ task.is_completed|yesno:"Completed, Not completed" }}</td>
+                                    <td>{{ task.is_completed|yesno:"Done, Not done" }}</td>
                                     <td>
                                         {% if task.priority == 1 %}
                                             <span class="badge bg-gradient-danger">Urgent</span>

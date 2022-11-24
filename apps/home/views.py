@@ -12,8 +12,16 @@ from django.template import loader
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 
-from apps.home.forms import WorkerCreationForm, TaskCreationForm, TaskUpdateForm, TaskSearchForm, TaskTypeCreationForm, \
-    PositionCreationForm, TaskTypeUpdateForm, PositionUpdateForm
+from apps.home.forms import (
+    WorkerCreationForm,
+    TaskCreationForm,
+    TaskUpdateForm,
+    TaskSearchForm,
+    TaskTypeCreationForm,
+    PositionCreationForm,
+    TaskTypeUpdateForm,
+    PositionUpdateForm,
+)
 from apps.home.models import Worker, Task, TaskType, Position
 
 
@@ -28,7 +36,7 @@ def index(request):
     request.session["num_visits"] = num_visits + 1
 
     context = {
-        'segment': 'index',
+        "segment": "index",
         "num_workers": num_workers,
         "num_tasks": num_tasks,
         "num_task_types": num_task_types,
@@ -36,7 +44,7 @@ def index(request):
         "num_visits": num_visits,
     }
 
-    html_template = loader.get_template('home/index.html')
+    html_template = loader.get_template("home/index.html")
     return HttpResponse(html_template.render(context, request))
 
 
@@ -47,22 +55,22 @@ def pages(request):
     # Pick out the html file name from the url. And load that template.
     try:
 
-        load_template = request.path.split('/')[-1]
+        load_template = request.path.split("/")[-1]
 
-        if load_template == 'admin':
-            return HttpResponseRedirect(reverse('admin:index'))
-        context['segment'] = load_template
+        if load_template == "admin":
+            return HttpResponseRedirect(reverse("admin:index"))
+        context["segment"] = load_template
 
-        html_template = loader.get_template('home/' + load_template)
+        html_template = loader.get_template("home/" + load_template)
         return HttpResponse(html_template.render(context, request))
 
     except template.TemplateDoesNotExist:
 
-        html_template = loader.get_template('home/page-404.html')
+        html_template = loader.get_template("home/page-404.html")
         return HttpResponse(html_template.render(context, request))
 
     except:
-        html_template = loader.get_template('home/page-500.html')
+        html_template = loader.get_template("home/page-500.html")
         return HttpResponse(html_template.render(context, request))
 
 
@@ -93,9 +101,7 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 
         task_type = self.request.GET.get("task_type", "")
 
-        contex["search_form"] = TaskSearchForm(initial={
-            "task_type": task_type
-        })
+        contex["search_form"] = TaskSearchForm(initial={"task_type": task_type})
 
         return contex
 
@@ -110,7 +116,9 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
-    queryset = Task.objects.all().select_related("task_type").prefetch_related("assignees")
+    queryset = (
+        Task.objects.all().select_related("task_type").prefetch_related("assignees")
+    )
 
 
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
@@ -160,6 +168,7 @@ class PositionUpdateView(LoginRequiredMixin, generic.UpdateView):
     form_class = PositionUpdateForm
     success_url = reverse_lazy("home:position-list")
 
+
 @login_required
 def delete_worker(request, pk):
     worker = Worker.objects.get(id=pk)
@@ -172,7 +181,7 @@ def change_task_status(request, pk1, pk2):
     task = Task.objects.get(id=pk1)
     task.is_completed = not task.is_completed
     task.save()
-    return redirect(reverse("home:worker-detail", kwargs={'pk': pk2}))
+    return redirect(reverse("home:worker-detail", kwargs={"pk": pk2}))
 
 
 @login_required
@@ -182,7 +191,7 @@ def assign_to_task(request, pk):
         Task.objects.get(id=pk).assignees.remove(current_user)
     else:
         Task.objects.get(id=pk).assignees.add(current_user)
-    return redirect(reverse("home:task-detail", kwargs={'pk': pk}))
+    return redirect(reverse("home:task-detail", kwargs={"pk": pk}))
 
 
 @login_required
