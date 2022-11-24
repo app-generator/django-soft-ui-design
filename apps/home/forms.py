@@ -67,3 +67,10 @@ class PositionCreationForm(forms.ModelForm):
     class Meta:
         model = Position
         fields = "__all__"
+
+
+class PositionUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Position
+        fields = "__all__"
