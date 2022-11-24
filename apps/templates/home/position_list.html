@@ -1,18 +1,18 @@
 {% extends 'layouts/base-presentation.html' %}
 
-{% block title %} Task Types {% endblock title %}
+{% block title %} Positions {% endblock title %}
 
 {% block content %}
     <div class="container" style="margin-top: 100px">
         <h1 class="text-primary">
-            Task Type List
-            <a href="{% url 'home:task-type-create' %}" class="btn bg-gradient-primary w-auto me-1 mb-0">
+            Position List
+            <a href="{% url 'home:position-create' %}" class="btn bg-gradient-primary w-auto me-1 mb-0">
                 +Add
             </a>
             {% include "includes/pagination.html" %}
         </h1>
 
-        {% if tasktype_list %}
+        {% if position_list %}
             <table class="table table-hover">
                 <thead style="background: #F1F1F1">
                 <tr>
@@ -23,23 +23,21 @@
                 </tr>
                 </thead>
 
-                {% for tasktype in tasktype_list %}
+                {% for position in position_list %}
                     <tr>
                         <td>
-                            {{ tasktype.id }}
+                            {{ position.id }}
                         </td>
                         <td>
-                            {{ tasktype.name }}
+                            {{ position.name }}
                         </td>
                         <td>
                             <button type="button" class="btn btn-dark w-auto me-1 mb-0" data-bs-toggle="modal"
-                                    data-bs-target="#Modal{{ tasktype.id }}">
+                                    data-bs-target="#Modal{{ position.id }}">
                                 X
                             </button>
-
                             <!-- Modal -->
-                            <div class="modal fade" id="Modal{{ tasktype.id }}" tabindex="-1"
-                                 aria-labelledby="exampleModalLabel"
+                            <div class="modal fade" id="Modal{{ position.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -50,31 +48,35 @@
                                         </div>
                                         <div class="modal-body">
                                             Are you sure you want to delete the following task type?<br>
-                                            <strong>{{ tasktype.name }}</strong>
+                                            <strong>{{ position.name }}</strong>
                                         </div>
                                         <div class="modal-footer justify-content-between">
                                             <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">
                                                 No
                                             </button>
-                                            <a href="{% url "home:task-type-delete" pk=tasktype.id %}"
+                                            <a href="{% url "home:position-delete" pk=position.id %}"
                                                class="btn bg-gradient-primary">Yes</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </td>
-                        <td>
+                    <td>
                             <button type="button"
-                                    onclick="window.location.href='{% url 'home:task-type-update' pk=tasktype.id %}';"
+                                    onclick="window.location.href='{% url 'home:position-update' pk=position.id %}';"
                                     class="btn bg-gradient-light">
                                 &#8634;
                             </button>
                         </td>
                     </tr>
+
                 {% endfor %}
             </table>
+
         {% else %}
-            <p>There are no task types yet.</p>
+            <p>There are no positions yet.</p>
         {% endif %}
     </div>
+
+
 {% endblock %}
