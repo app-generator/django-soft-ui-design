@@ -1,8 +1,3 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
-
 from django import template
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -31,7 +26,6 @@ def index(request):
     num_tasks = Task.objects.count()
     num_task_types = TaskType.objects.count()
     num_positions = Position.objects.count()
-
     num_visits = request.session.get("num_visits", 0)
     request.session["num_visits"] = num_visits + 1
 
@@ -51,8 +45,7 @@ def index(request):
 @login_required(login_url="/login/")
 def pages(request):
     context = {}
-    # All resource paths end in .html.
-    # Pick out the html file name from the url. And load that template.
+
     try:
 
         load_template = request.path.split("/")[-1]
@@ -76,6 +69,7 @@ def pages(request):
 
 class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
+    queryset = Worker.objects.all().select_related("position")
     paginate_by = 5
 
 
@@ -93,7 +87,9 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     paginate_by = 5
-    queryset = Task.objects.all().select_related("task_type")
+    queryset = (
+        Task.objects.all().select_related("task_type").prefetch_related("assignees")
+    )
 
     def get_context_data(self, *, object_list=None, **kwargs):
         contex = super(TaskListView, self).get_context_data(**kwargs)

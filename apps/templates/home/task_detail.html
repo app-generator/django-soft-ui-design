@@ -26,7 +26,7 @@
         <p><strong>Priority:</strong> {{ task.get_priority_display }}</p>
         <p><strong>Task Type:</strong> {{ task.task_type }}</p>
         <h3 class="text-primary">
-            Assignees
+            Assigned to
             {% if user in task.assignees.all %}
                 <a href="{% url "home:assign-to-task" pk=task.id %}" class="btn bg-gradient-secondary w-auto me-1 mb-0">
                     Remove me from this task
