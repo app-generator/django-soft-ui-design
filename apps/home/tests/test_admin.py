@@ -10,9 +10,7 @@ class AdminSiteTests(TestCase):
         self.client = Client()
         self.position_admin = Position.objects.create(name="admin")
         self.admin_user = get_user_model().objects.create_superuser(
-            username="admin",
-            password="admin12345",
-            position=self.position_admin
+            username="admin", password="admin12345", position=self.position_admin
         )
         self.client.force_login(self.admin_user)
         self.position_tester = Position.objects.create(name="tester")
@@ -31,4 +29,3 @@ class AdminSiteTests(TestCase):
         url = reverse("admin:home_worker_change", args=[self.worker.id])
         res = self.client.get(url)
         self.assertContains(res, self.worker.position)
-
