@@ -5,7 +5,7 @@
         <nav class="navbar navbar-expand-lg  blur blur-rounded top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
           <div class="container-fluid">
             <a class="navbar-brand font-weight-bolder ms-sm-3" 
-               href="/" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom">
+               href="/" rel="tooltip" title="Home Page" data-placement="bottom">
               Task Manager
             </a>
             <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,27 +17,26 @@
             </button>
             <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0" id="navigation">
               <ul class="navbar-nav navbar-nav-hover ms-lg-0 ps-lg-0 w-100">
-                <li class="nav-item dropdown dropdown-hover mx-2">
-                  <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
-                    Pages
-                    <img src="{{ ASSETS_ROOT }}/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
+                <li class="nav-item ms-lg-auto">
+                  <a class="nav-link nav-link-icon me-2" href="{% url 'home:worker-list' %}">
+                    <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Worker List">Workers</p>
                   </a>
-                  <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuPages">
-                    <div class="d-none d-lg-block">
-                      <a href="{% url "home:worker-list" %}" class="dropdown-item border-radius-md">
-                        Workers
-                      </a>
-                      <a href="{% url "home:task-list" %}" class="dropdown-item border-radius-md">
-                        Tasks
-                      </a>
-                        <a href="{% url "home:task-type-list" %}" class="dropdown-item border-radius-md">
-                        Task Types
-                      </a>
-                        <a href="{% url "home:position-list" %}" class="dropdown-item border-radius-md">
-                        Positions
-                      </a>
-                    </div>
-                  </div>
+                </li>
+                <li class="nav-item ms-lg-auto">
+                  <a class="nav-link nav-link-icon me-2" href="{% url 'home:task-list' %}">
+                    <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Task List">Tasks</p>
+                  </a>
+                </li>
+                <li class="nav-item ms-lg-auto">
+                  <a class="nav-link nav-link-icon me-2" href="{% url 'home:task-type-list' %}">
+                    <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Task Type List">Task Types</p>
+                  </a>
+                </li>
+                <li class="nav-item ms-lg-auto">
+                  <a class="nav-link nav-link-icon me-2" href="{% url 'home:position-list' %}">
+                    <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Position List">Positions</p>
+                  </a>
+                </li>
                 <li class="nav-item ms-lg-auto">
                   <a class="nav-link nav-link-icon me-2" href="{% url 'logout' %}">
                     <i class="fa fa-sign-out me-1"></i>
@@ -46,7 +45,6 @@
                 </li>
                 <li class="nav-item my-auto ms-3 ms-lg-0">
                   <a href="{% url "home:worker-detail" pk=user.id %}"
-                     target="_blank"
                      class="btn btn-sm  bg-gradient-primary btn-round mb-0 me-1 mt-2 mt-md-0">Hello, {{ user.get_username }} | 👤</a>
                 </li>
               </ul>

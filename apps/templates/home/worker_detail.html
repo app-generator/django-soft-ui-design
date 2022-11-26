@@ -52,11 +52,14 @@
                                         <button type="button" class="btn bg-gradient-secondary mb-0"
                                                 data-bs-container="body"
                                                 data-bs-toggle="popover" data-bs-placement="top"
-                                                data-bs-content="{{ task.description }}">
+                                                data-bs-content-id="popover-content{{ task.id }}">
                                             📝
                                         </button>
+                                        <div id="popover-content{{ task.id }}" class="d-none">
+                                            {{ task.description }}
+                                        </div>
                                     </td>
-                                    <td>{{ task.type }}</td>
+                                    <td>{{ task.task_type }}</td>
                                     <td>
                                         {% if task.priority == 1 %}
                                             <span class="badge bg-gradient-danger">{{ task.get_priority_display }}</span>
@@ -119,11 +122,14 @@
                                         <button type="button" class="btn bg-gradient-secondary mb-0"
                                                 data-bs-container="body"
                                                 data-bs-toggle="popover" data-bs-placement="top"
-                                                data-bs-content="{{ task.description }}">
+                                                data-bs-content-id="popover-content{{ task.id }}">
                                             📝
                                         </button>
+                                        <div id="popover-content{{ task.id }}" class="d-none">
+                                            {{ task.description }}
+                                        </div>
                                     </td>
-                                    <td>{{ task.type }}</td>
+                                    <td>{{ task.task_type }}</td>
                                     <td>
                                         {% if task.priority == 1 %}
                                             <span class="badge bg-gradient-danger">{{ task.get_priority_display }}</span>
@@ -172,9 +178,16 @@
 
 {% block javascripts %}
     <script>
-        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-            return new bootstrap.Popover(popoverTriggerEl)
+        const list = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        list.map((el) => {
+            let opts = {
+                animation: false,
+            }
+            if (el.hasAttribute('data-bs-content-id')) {
+                opts.content = document.getElementById(el.getAttribute('data-bs-content-id')).innerHTML;
+                opts.html = true;
+            }
+            new bootstrap.Popover(el, opts);
         })
     </script>
 {% endblock javascripts %}
