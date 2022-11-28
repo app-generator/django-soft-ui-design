@@ -39,12 +39,7 @@ class TaskType(models.Model):
 
 class Task(models.Model):
 
-    PRIORITY_CHOICES = [
-        (1, "Urgent"),
-        (2, "High"),
-        (3, "Medium"),
-        (4, "Low")
-    ]
+    PRIORITY_CHOICES = [(1, "Urgent"), (2, "High"), (3, "Medium"), (4, "Low")]
 
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
