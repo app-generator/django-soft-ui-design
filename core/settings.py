@@ -33,6 +33,7 @@ ALLOWED_HOSTS = [
     "localhost:85",
     "127.0.0.1",
     env("SERVER", default="127.0.0.1"),
+    "task-manager-1efo.onrender.com",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:85",
