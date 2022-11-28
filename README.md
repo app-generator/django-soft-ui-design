@@ -36,7 +36,6 @@ python manage.py runserver #starts Django Server
 * Each worker has his own detail page with completed and uncompleted task displayed separately
 * All tasks can be prioritised to manage time more effectively and  hit deadlines
 * Powerful admin panel for advanced managing
-* Powerful admin panel for advanced managing
 
 ## Demo
 
