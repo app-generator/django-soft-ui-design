@@ -3,7 +3,10 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
-import os, environ
+import environ
+import os
+
+import dj_database_url
 
 env = environ.Env(
     # set casting, default value
@@ -110,6 +113,9 @@ else:
             "NAME": "db.sqlite3",
         }
     }
+
+db_from_env = dj_database_url.config()
+DATABASES["default"].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
