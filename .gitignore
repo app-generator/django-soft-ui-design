@@ -22,7 +22,7 @@ venv
 package-lock.json
 
 staticfiles/*
-!staticfiles/.gitkeep 
+!staticfiles/.gitkeep
 .vscode/symbols.json
 
 apps/static/assets/node_modules
