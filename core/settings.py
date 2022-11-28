@@ -8,10 +8,7 @@ import os
 
 import dj_database_url
 
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
+env = environ.Env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -24,7 +21,8 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = env("SECRET_KEY", default="S#perS3crEt_007")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG")
+DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
+# DEBUG = env("DEBUG")
 
 # Assets Management
 ASSETS_ROOT = os.getenv("ASSETS_ROOT", "/static/assets")
