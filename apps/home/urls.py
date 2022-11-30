@@ -56,5 +56,5 @@ urlpatterns = [
     ),
     path("positions/<int:pk>/delete/", delete_position, name="position-delete"),
     # Matches any html file
-    re_path(r"^.*\.*", views.pages, name="pages"),
+    # re_path(r"^.*\.*", views.pages, name="pages"),
 ]

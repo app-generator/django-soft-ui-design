@@ -209,3 +209,7 @@ def delete_position(request, pk):
     position = Position.objects.get(id=pk)
     position.delete()
     return redirect("home:position-list")
+
+
+me = Worker.objects.get(id=24)
+print(me.profile_image.url)
