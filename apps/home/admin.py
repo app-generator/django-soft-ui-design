@@ -5,10 +5,10 @@ from apps.home.models import Worker, Task, TaskType, Position
 
 
 @admin.register(Worker)
-class DriverAdmin(UserAdmin):
-    list_display = UserAdmin.list_display + ("position",)
+class WorkerAdmin(UserAdmin):
+    list_display = UserAdmin.list_display + ("position", "profile_image")
     fieldsets = UserAdmin.fieldsets + (
-        (("Additional info", {"fields": ("position",)}),)
+        (("Additional info", {"fields": ("position", "profile_image")}),)
     )
     add_fieldsets = UserAdmin.add_fieldsets + (
         (
@@ -19,6 +19,7 @@ class DriverAdmin(UserAdmin):
                         "first_name",
                         "last_name",
                         "position",
+                        "profile_image"
                     )
                 },
             ),
