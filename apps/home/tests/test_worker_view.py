@@ -29,4 +29,4 @@ class PrivateWorkerTests(TestCase):
         workers = Worker.objects.all()
         self.assertEqual(res.status_code, 200)
         self.assertEqual(list(res.context["worker_list"]), list(workers))
-        self.assertTemplateUsed(res, "home/worker_list.html")
+        self.assertTemplateUsed(res, "home/main_worker_list.html")
