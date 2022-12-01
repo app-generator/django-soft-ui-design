@@ -1,0 +1,384 @@
+{% extends 'layouts/base-presentation.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block title %} Tables {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="container py-6">
+
+    <div class="row my-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <div class="row">
+              <div class="col-lg-6 col-7">
+                <h5>Tasks list
+                  <a href="{% url 'home:task-create' %}">
+                    +
+                  </a>
+                </h5>
+                {#                  <p class="text-sm mb-0">#}
+                {#                    <i class="fa fa-check text-info" aria-hidden="true"></i>#}
+                {#                    <span class="font-weight-bold ms-1">30 done</span> this month#}
+
+                <form action="" method="get" class="d-flex align-items-center flex-nowrap">
+                  {% csrf_token %}
+                  {{ search_form|crispy }}
+                  <button class="btn btn-outline-primary  align-items-center" type="submit"><i class="fas fa-search"
+                                                                                               aria-hidden="true"></i>
+                  </button>
+                </form>
+                {#                  </p>#}
+              </div>
+              {#                <div class="col-lg-6 col-7">#}
+              {#                </div>#}
+              {#                <div class="col-lg-6 col-5 my-auto text-end">#}
+              {#                  <div class="dropdown float-lg-end pe-4">#}
+              {#                    <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">#}
+              {#                      <i class="fa fa-ellipsis-v text-secondary"></i>#}
+              {#                    </a>#}
+              {#                    <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">#}
+              {#                      <li><a class="dropdown-item border-radius-md" href="javascript:;">Add task</a></li>#}
+              {#                      <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a></li>#}
+              {#                      <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a></li>#}
+              {#                    </ul>#}
+              {#                  </div>#}
+              {#                </div>#}
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive">
+              {% if task_list %}
+                <table class="table table-hover align-items-center mb-0">
+                  <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Name</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Task Type</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Assigned to
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Status
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                      Priority
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                      Deadline
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Delete
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for task in task_list %}
+                    <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6><a class="mb-0 text-sm"><a href="{{ task.get_absolute_url }}">{{ task.name }}</a></h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <span class="mb-0 text-sm">{{ task.task_type }}</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="avatar-group mt-2">
+                        {% if task.assignees %}
+                          {% for worker in task.assignees.all %}
+                            {% if  worker.profile_image %}
+                              <a href="{{ worker.get_absolute_url }}" class="avatar avatar-xs rounded-circle"
+                                 data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                 title="{{ worker.first_name }} {{ worker.last_name }}">
+                                <img src="{{ MEDIA_URL }}{{ worker.profile_image.url }}" alt="team1">
+                              </a>
+                            {% else %}
+                              <a href="{{ worker.get_absolute_url }}" class="avatar avatar-xs rounded-circle"
+                                 data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                 title="{{ worker.first_name }} {{ worker.last_name }}">
+                                <img src="{% static 'assets/img/default_profile_image.jpeg' %}" alt="team1">
+                              </a>
+                            {% endif %}
+                          {% endfor %}
+                        {% endif %}
+
+                      </div>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold"> {{ task.is_completed|yesno:"Done, Not done" }} </span>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      {% if task.priority == 1 %}
+                        <span class="badge bg-gradient-primary">Urgent</span>
+                      {% elif task.priority == 2 %}
+                        <span class="badge bg-gradient-dark">High</span>
+                      {% elif task.priority == 3 %}
+                        <span class="badge bg-gradient-secondary">Medium</span>
+                      {% elif task.priority == 4 %}
+                        <span class="badge bg-gradient-light text-dark">Low</span>
+                      {% endif %}
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="mb-0 text-sm">{{ task.deadline }}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <button type="button" class="btn border-0 w-auto mb-0"
+                              data-bs-toggle="modal"
+                              data-bs-target="#Modal{{ task.id }}">
+                        X
+                      </button>
+                    </td>
+                    <!-- Modal -->
+                    <div class="modal fade" id="Modal{{ task.id }}" tabindex="-1"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">DELETE
+                              WORKER</h5>
+                            <button type="button" class="btn-close"
+                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            Are you sure you want to remove
+                            <strong>{{ task.name }}</strong> from the list of
+                            tasks?
+                          </div>
+                          <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn bg-gradient-dark"
+                                    data-bs-dismiss="modal">No
+                            </button>
+                            <a href="{% url "home:task-delete" pk=task.id %}"
+                               class="btn bg-gradient-primary">Yes</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                  </tr>
+                  {#                      <td class="align-middle">#}
+                  {#                        <div class="progress-wrapper w-75 mx-auto">#}
+                  {#                          <div class="progress-info">#}
+                  {#                            <div class="progress-percentage">#}
+                  {#                              <span class="text-xs font-weight-bold">60%</span>#}
+                  {#                            </div>#}
+                  {#                          </div>#}
+                  {#                          <div class="progress">#}
+                  {#                            <div class="progress-bar bg-gradient-info w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>#}
+                  {#                          </div>#}
+                  {#                        </div>#}
+                  {#                      </td>#}
+                  {#                    </tr>#}
+                  {#                    <tr>#}
+                  {#                      <td>#}
+                  {#                        <div class="d-flex px-2 py-1">#}
+                  {#                          <div>#}
+                  {#                            <img src="{{ ASSETS_ROOT }}/img/small-logos/logo-atlassian.svg" class="avatar avatar-sm me-3" alt="atlassian">#}
+                  {#                          </div>#}
+                  {#                          <div class="d-flex flex-column justify-content-center">#}
+                  {#                            <h6 class="mb-0 text-sm">Add Progress Track</h6>#}
+                  {#                          </div>#}
+                  {#                        </div>#}
+                  {#                      </td>#}
+                  {#                      <td>#}
+                  {#                        <div class="avatar-group mt-2">#}
+                  {#                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Romina Hadid">#}
+                  {#                            <img src="{{ ASSETS_ROOT }}/img/team-2.jpg" alt="team5">#}
+                  {#                          </a>#}
+                  {#                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jessica Doe">#}
+                  {#                            <img src="{{ ASSETS_ROOT }}/img/team-4.jpg" alt="team6">#}
+                  {#                          </a>#}
+                  {#                        </div>#}
+                  {#                      </td>#}
+                  {#                      <td class="align-middle text-center text-sm">#}
+                  {#                        <span class="text-xs font-weight-bold"> $3,000 </span>#}
+                  {#                      </td>#}
+                  {#                      <td class="align-middle">#}
+                  {#                        <div class="progress-wrapper w-75 mx-auto">#}
+                  {#                          <div class="progress-info">#}
+                  {#                            <div class="progress-percentage">#}
+                  {#                              <span class="text-xs font-weight-bold">10%</span>#}
+                  {#                            </div>#}
+                  {#                          </div>#}
+                  {#                          <div class="progress">#}
+                  {#                            <div class="progress-bar bg-gradient-info w-10" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>#}
+                  {#                          </div>#}
+                  {#                        </div>#}
+                  {#                      </td>#}
+                  {#                    </tr>#}
+                  {#                    <tr>#}
+                  {#                      <td>#}
+                  {#                        <div class="d-flex px-2 py-1">#}
+                  {#                          <div>#}
+                  {#                            <img src="{{ ASSETS_ROOT }}/img/small-logos/logo-slack.svg" class="avatar avatar-sm me-3" alt="team7">#}
+                  {#                          </div>#}
+                  {#                          <div class="d-flex flex-column justify-content-center">#}
+                  {#                            <h6 class="mb-0 text-sm">Fix Platform Errors</h6>#}
+                  {#                          </div>#}
+                  {#                        </div>#}
+                  {#                      </td>#}
+                  {#                      <td>#}
+                  {#                        <div class="avatar-group mt-2">#}
+                  {#                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Romina Hadid">#}
+                  {#                            <img src="{{ ASSETS_ROOT }}/img/team-3.jpg" alt="team8">#}
+                  {#                          </a>#}
+                  {#                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jessica Doe">#}
+                  {#                            <img src="{{ ASSETS_ROOT }}/img/team-1.jpg" alt="team9">#}
+                  {#                          </a>#}
+                  {#                        </div>#}
+                  {#                      </td>#}
+                  {#                      <td class="align-middle text-center text-sm">#}
+                  {#                        <span class="text-xs font-weight-bold"> Not set </span>#}
+                  {#                      </td>#}
+                  {#                      <td class="align-middle">#}
+                  {#                        <div class="progress-wrapper w-75 mx-auto">#}
+                  {#                          <div class="progress-info">#}
+                  {#                            <div class="progress-percentage">#}
+                  {#                              <span class="text-xs font-weight-bold">100%</span>#}
+                  {#                            </div>#}
+                  {#                          </div>#}
+                  {#                          <div class="progress">#}
+                  {#                            <div class="progress-bar bg-gradient-success w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>#}
+                  {#                          </div>#}
+                  {#                        </div>#}
+                  {#                      </td>#}
+                  {#                    </tr>#}
+                  {#                    <tr>#}
+                  {#                      <td>#}
+                  {#                        <div class="d-flex px-2 py-1">#}
+                  {#                          <div>#}
+                  {#                            <img src="{{ ASSETS_ROOT }}/img/small-logos/logo-spotify.svg" class="avatar avatar-sm me-3" alt="spotify">#}
+                  {#                          </div>#}
+                  {#                          <div class="d-flex flex-column justify-content-center">#}
+                  {#                            <h6 class="mb-0 text-sm">Launch our Mobile App</h6>#}
+                  {#                          </div>#}
+                  {#                        </div>#}
+                  {#                      </td>#}
+                  {#                      <td>#}
+                  {#                        <div class="avatar-group mt-2">#}
+                  {#                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ryan Tompson">#}
+                  {#                            <img src="{{ ASSETS_ROOT }}/img/team-4.jpg" alt="user1">#}
+                  {#                          </a>#}
+                  {#                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Romina Hadid">#}
+                  {#                            <img src="{{ ASSETS_ROOT }}/img/team-3.jpg" alt="user2">#}
+                  {#                          </a>#}
+                  {#                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Alexander Smith">#}
+                  {#                            <img src="{{ ASSETS_ROOT }}/img/team-4.jpg" alt="user3">#}
+                  {#                          </a>#}
+                  {#                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jessica Doe">#}
+                  {#                            <img src="{{ ASSETS_ROOT }}/img/team-1.jpg" alt="user4">#}
+                  {#                          </a>#}
+                  {#                        </div>#}
+                  {#                      </td>#}
+                  {#                      <td class="align-middle text-center text-sm">#}
+                  {#                        <span class="text-xs font-weight-bold"> $20,500 </span>#}
+                  {#                      </td>#}
+                  {#                      <td class="align-middle">#}
+                  {#                        <div class="progress-wrapper w-75 mx-auto">#}
+                  {#                          <div class="progress-info">#}
+                  {#                            <div class="progress-percentage">#}
+                  {#                              <span class="text-xs font-weight-bold">100%</span>#}
+                  {#                            </div>#}
+                  {#                          </div>#}
+                  {#                          <div class="progress">#}
+                  {#                            <div class="progress-bar bg-gradient-success w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>#}
+                  {#                          </div>#}
+                  {#                        </div>#}
+                  {#                      </td>#}
+                  {#                    </tr>#}
+                  {#                    <tr>#}
+                  {#                      <td>#}
+                  {#                        <div class="d-flex px-2 py-1">#}
+                  {#                          <div>#}
+                  {#                            <img src="{{ ASSETS_ROOT }}/img/small-logos/logo-jira.svg" class="avatar avatar-sm me-3" alt="jira">#}
+                  {#                          </div>#}
+                  {#                          <div class="d-flex flex-column justify-content-center">#}
+                  {#                            <h6 class="mb-0 text-sm">Add the New Pricing Page</h6>#}
+                  {#                          </div>#}
+                  {#                        </div>#}
+                  {#                      </td>#}
+                  {#                      <td>#}
+                  {#                        <div class="avatar-group mt-2">#}
+                  {#                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ryan Tompson">#}
+                  {#                            <img src="{{ ASSETS_ROOT }}/img/team-4.jpg" alt="user5">#}
+                  {#                          </a>#}
+                  {#                        </div>#}
+                  {#                      </td>#}
+                  {#                      <td class="align-middle text-center text-sm">#}
+                  {#                        <span class="text-xs font-weight-bold"> $500 </span>#}
+                  {#                      </td>#}
+                  {#                      <td class="align-middle">#}
+                  {#                        <div class="progress-wrapper w-75 mx-auto">#}
+                  {#                          <div class="progress-info">#}
+                  {#                            <div class="progress-percentage">#}
+                  {#                              <span class="text-xs font-weight-bold">25%</span>#}
+                  {#                            </div>#}
+                  {#                          </div>#}
+                  {#                          <div class="progress">#}
+                  {#                            <div class="progress-bar bg-gradient-info w-25" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="25"></div>#}
+                  {#                          </div>#}
+                  {#                        </div>#}
+                  {#                      </td>#}
+                  {#                    </tr>#}
+                  {#                    <tr>#}
+                  {#                      <td>#}
+                  {#                        <div class="d-flex px-2 py-1">#}
+                  {#                          <div>#}
+                  {#                            <img src="{{ ASSETS_ROOT }}/img/small-logos/logo-invision.svg" class="avatar avatar-sm me-3" alt="invision">#}
+                  {#                          </div>#}
+                  {#                          <div class="d-flex flex-column justify-content-center">#}
+                  {#                            <h6 class="mb-0 text-sm">Redesign New Online Shop</h6>#}
+                  {#                          </div>#}
+                  {#                        </div>#}
+                  {#                      </td>#}
+                  {#                      <td>#}
+                  {#                        <div class="avatar-group mt-2">#}
+                  {#                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ryan Tompson">#}
+                  {#                            <img src="{{ ASSETS_ROOT }}/img/team-1.jpg" alt="user6">#}
+                  {#                          </a>#}
+                  {#                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jessica Doe">#}
+                  {#                            <img src="{{ ASSETS_ROOT }}/img/team-4.jpg" alt="user7">#}
+                  {#                          </a>#}
+                  {#                        </div>#}
+                  {#                      </td>#}
+                  {#                      <td class="align-middle text-center text-sm">#}
+                  {#                        <span class="text-xs font-weight-bold"> $2,000 </span>#}
+                  {#                      </td>#}
+                  {#                      <td class="align-middle">#}
+                  {#                        <div class="progress-wrapper w-75 mx-auto">#}
+                  {#                          <div class="progress-info">#}
+                  {#                            <div class="progress-percentage">#}
+                  {#                              <span class="text-xs font-weight-bold">40%</span>#}
+                  {#                            </div>#}
+                  {#                          </div>#}
+                  {#                          <div class="progress">#}
+                  {#                            <div class="progress-bar bg-gradient-info w-40" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="40"></div>#}
+                  {#                          </div>#}
+                  {#                        </div>#}
+                  {#                      </td>#}
+                  {#                    </tr>#}
+                  </tbody>
+                </table>
+              {% else %}
+                <p>NO TASKS</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

@@ -48,11 +48,11 @@ class Worker(AbstractUser):
                 completed_tasks += 1
         return int(completed_tasks * 100 / self.tasks_assigned_to)
 
-    def __str__(self):
-        return f"{self.username} ({self.first_name} {self.last_name})"
-
     def get_absolute_url(self):
         return reverse("home:worker-detail", kwargs={"pk": self.pk})
+
+    def __str__(self):
+        return f"{self.username} ({self.first_name} {self.last_name})"
 
 
 class TaskType(models.Model):
