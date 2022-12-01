@@ -9,8 +9,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),  # Django admin route
-    path("", include("apps.authentication.urls")),  # Auth routes - login / register
-    # ADD NEW Routes HERE
-    # Leave `Home.Urls` as last the last line
-    path("", include(("apps.home.urls", "apps.home"), namespace="home")),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path("", include("apps.authentication.urls"))]  # Auth routes - login / register
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Media files routes
+urlpatterns += [path("", include(("apps.home.urls", "apps.home"), namespace="home"))]  # Leave `Home.Urls` as last the
+# last line
