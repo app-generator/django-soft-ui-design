@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "apps.home",  # Enable the inner home (home)
     "crispy_forms",
+    # "django_fields",
 ]
 
 MIDDLEWARE = [
@@ -163,6 +164,7 @@ STATICFILES_DIRS = (os.path.join(CORE_DIR, "apps/static"),)
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
+# DEFAULT_IMAGE_PATH = ASSETS_ROOT + 'img/default_profile_image.jpeg'
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #############################################################
 #############################################################
