@@ -2,7 +2,7 @@
 
 {% if is_paginated %}
     <div class="col-2 mx-auto">
-        <ul class="pagination pagination-primary m-4">
+        <ul class="pagination pagination-sm">
             {% if page_obj.has_previous %}
                 <li class="page-item">
                     <a class="page-link" href="?{% query_transform request page=page_obj.previous_page_number %}"
@@ -12,7 +12,7 @@
                 </li>
             {% endif %}
             <li class="page-item active">
-                <a class="page-link" href="javascript:;">{{ page_obj.number }} / {{ paginator.num_pages }}</a>
+              <a class="page-link" href="javascript:;"><span class="text-white text-xs">{{ page_obj.number }}</span></a>
             </li>
             {% if page_obj.has_next %}
                 <li class="page-item">
