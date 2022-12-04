@@ -1,0 +1,125 @@
+{% extends 'layouts/base-presentation.html' %}
+{% load static %}
+
+{% block title %} Task Types {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="container py-6">
+
+    <div class="row my-4">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header pb-0">
+              <div class="row">
+                <div class="col-lg-6 col-7">
+            <h5>Task Type list
+              <a href="{% url 'home:task-type-create' %}">
+                +
+              </a></h5>
+          </div>
+          <div class="card-body px-0 pt-0 pb-2">
+            <div class="table-responsive p-0">
+              {% if tasktype_list %}
+                <table class="table table-hover align-items-center mb-0">
+                  <thead>
+{#                  <colgroup>#}
+{#                    <col style="width: 28%"/>#}
+{#                    <col style="width: 15%"/>#}
+{#                    <col style="width: 28%"/>#}
+{#                    <col style="width: 8%"/>#}
+{#                    <col style="width: 15%"/>#}
+{##}
+{#                  </colgroup>#}
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                      Name
+                    </th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder  opacity-7">
+                      Update
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                      Delete
+                    </th>
+
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for task_type in tasktype_list %}
+                    <tr>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          <div>
+                            <img src="{% static 'assets/img/default_profile_image.jpeg' %}" class="avatar avatar-sm me-3" alt="user1">
+                          </div>
+                          <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">{{ task_type.name }}
+                            </h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="align-middle text-sm">
+                        <button type="button"
+                                    onclick="window.location.href='{% url 'home:task-type-update' pk=task_type.id %}';"
+                                    class="btn bg-gradient-light">
+                                ✔
+                            </button>
+                      </td>
+                      <td class="align-middle text-center text-sm">
+                        <button type="button" class="btn border-0 w-auto mb-0" data-bs-toggle="modal"
+                                    data-bs-target="#Modal{{ task_type.id }}">
+                                X
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="Modal{{ task_type.id }}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">DELETE TASK TYPE</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                              Are you sure you want to remove
+                              <strong>{{ task_type.name }}</strong> from the list of
+                              task types?
+                            </div>
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">
+                                                No
+                                            </button>
+                                            <a href="{% url "home:task-type-delete" pk=task_type.id %}"
+                                               class="btn bg-gradient-primary">Yes</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                      </td>
+
+                    </tr>
+
+                  {% endfor %}
+                </tbody>
+              {% else %}
+                <p>There are no task types yet.</p>
+              {% endif %}
+
+        </table>
+      </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
