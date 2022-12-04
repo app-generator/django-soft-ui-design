@@ -28,4 +28,4 @@ class PrivatePositionTests(TestCase):
         positions = Position.objects.all()
         self.assertEqual(res.status_code, 200)
         self.assertEqual(list(res.context["position_list"]), list(positions))
-        self.assertTemplateUsed(res, "home/position_list.html")
+        self.assertTemplateUsed(res, "home/main_position_list.html")

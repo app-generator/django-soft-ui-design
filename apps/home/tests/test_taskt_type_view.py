@@ -28,4 +28,4 @@ class PrivatePositionTests(TestCase):
         task_types = TaskType.objects.all()
         self.assertEqual(res.status_code, 200)
         self.assertEqual(list(res.context["position_list"]), list(task_types))
-        self.assertTemplateUsed(res, "home/tasktype_list.html")
+        self.assertTemplateUsed(res, "home/main_tasktype_list.html")

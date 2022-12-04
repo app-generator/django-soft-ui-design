@@ -7,13 +7,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0013_alter_worker_position'),
+        ("home", "0013_alter_worker_position"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='worker',
-            name='image',
-            field=models.ImageField(null=True, upload_to=apps.home.models.worker_image_file_path),
+            model_name="worker",
+            name="image",
+            field=models.ImageField(
+                null=True, upload_to=apps.home.models.worker_image_file_path
+            ),
         ),
     ]
