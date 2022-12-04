@@ -1,7 +1,7 @@
 {% extends 'layouts/base-presentation.html' %}
 {% load static %}
 
-{% block title %} Profile {% endblock title %}
+{% block title %} Worker Profile {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -172,7 +172,7 @@
               <h5 class="text-primary mb-0">Profile Information</h5>
             </div>
             <div class="col-md-4 text-end">
-              <a href="javascript:;">
+              <a href="{% url 'home:profile-update' pk=worker.id %}">
                 <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip"
                    data-bs-placement="top" title="Edit Profile"></i>
               </a>

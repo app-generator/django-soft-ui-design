@@ -14,14 +14,7 @@ class WorkerAdmin(UserAdmin):
         (
             (
                 "Additional info",
-                {
-                    "fields": (
-                        "first_name",
-                        "last_name",
-                        "position",
-                        "profile_image"
-                    )
-                },
+                {"fields": ("first_name", "last_name", "position", "profile_image")},
             ),
         )
     )

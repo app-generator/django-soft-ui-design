@@ -4,8 +4,8 @@
 {% block title %} {{ object|yesno:"Update,Create" }} Task Type {% endblock title %}
 
 {% block content %}
-    <div class="container" style="margin-top: 100px">
-        <h1 class="text-primary"> Task Type</h1>
+    <div class="container py-7">
+        <h4 class="text-primary"> Task Type</h4>
         <form action="" method="post" novalidate>
             {% csrf_token %}
             {{ form|crispy }}

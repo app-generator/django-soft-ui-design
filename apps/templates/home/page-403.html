@@ -7,37 +7,36 @@
 
 {% block content %}
 
-    <header>
-        <div class="page-header section-height-85">
-            <div class="container">
-                <div class="row">
-                    <div class="card d-flex blur justify-content-center p-4 shadow-lg my-sm-0 my-sm-6 mt-8 mb-5">
-                        <div class="text-center">
-                            <h3 class="text-gradient text-primary">
-                                Error 403
-                            </h3>
-                            <p class="mb-0">
-                                Access denied. Please contact support or authenticate.
-                            </p>
-                        </div>
-                        <form role="form" id="contact-form" method="post" autocomplete="off">
-                            <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <a href="/" class="btn bg-gradient-primary mt-3 mb-0">HOME</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+  <header>
+    <div class="page-header section-height-85">
+      <div class="container">
+        <div class="row">
+          <div class="card d-flex blur justify-content-center p-4 shadow-lg my-sm-0 my-sm-6 mt-8 mb-5">
+            <div class="text-center">
+              <h3 class="text-gradient text-primary">
+                Error 403
+              </h3>
+              <p class="mb-0">
+                Access denied. Please contact support or authenticate.
+              </p>
             </div>
+            <form role="form" id="contact-form" method="post" autocomplete="off">
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <a href="/" class="btn bg-gradient-primary mt-3 mb-0">HOME</a>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-    </header>
-
+      </div>
+    </div>
+  </header>
 {% endblock content %}
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
 
-    <script src="{{ ASSETS_ROOT }}/js/soft-design-system.min.js?v=1.0.1" type="text/javascript"></script>
+  <script src="{{ ASSETS_ROOT }}/js/soft-design-system.min.js?v=1.0.1" type="text/javascript"></script>
 
 {% endblock javascripts %}

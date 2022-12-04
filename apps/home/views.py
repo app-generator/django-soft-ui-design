@@ -15,7 +15,7 @@ from apps.home.forms import (
     TaskTypeCreationForm,
     PositionCreationForm,
     TaskTypeUpdateForm,
-    PositionUpdateForm,
+    PositionUpdateForm, ProfileUpdateForm,
 )
 from apps.home.models import Worker, Task, TaskType, Position
 
@@ -35,7 +35,7 @@ def index(request):
         "num_tasks": num_tasks,
         "num_task_types": num_task_types,
         "num_positions": num_positions,
-        "num_visits": num_visits,
+        "num_visits": num_visits + 1,
     }
 
     html_template = loader.get_template("home/index.html")
@@ -214,5 +214,13 @@ def delete_position(request, pk):
     return redirect("home:position-list")
 
 
-me = Worker.objects.get(id=24)
-print(me.profile_image.url)
+class ProfileUpdateView(generic.UpdateView):
+    model = Worker
+    template_name = "home/profile_form.html"
+    form_class = ProfileUpdateForm
+    success_url = reverse_lazy("home:worker-list")
+
+    def get_success_url(self):
+        pk = self.kwargs["pk"]
+        return reverse_lazy("home:worker-detail", kwargs={"pk": pk})
+

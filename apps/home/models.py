@@ -26,8 +26,12 @@ def worker_image_file_path(instance, filename):
 
 
 class Worker(AbstractUser):
-    position = models.ForeignKey(Position, on_delete=models.CASCADE, null=True, blank=True)
-    profile_image = models.ImageField(null=True, blank=True, upload_to=worker_image_file_path)
+    position = models.ForeignKey(
+        Position, on_delete=models.CASCADE, null=True, blank=True
+    )
+    profile_image = models.ImageField(
+        null=True, blank=True, upload_to=worker_image_file_path
+    )
 
     class Meta:
         verbose_name = "worker"

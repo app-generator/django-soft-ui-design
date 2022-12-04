@@ -7,7 +7,7 @@ from apps.home.models import Worker, Task, TaskType, Position
 
 
 class WorkerCreationForm(UserCreationForm):
-    #image = forms.FileField()
+    # image = forms.FileField()
 
     class Meta(UserCreationForm.Meta):
         model = Worker
@@ -80,3 +80,9 @@ class PositionUpdateForm(forms.ModelForm):
     class Meta:
         model = Position
         fields = "__all__"
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Worker
+        fields = ("first_name", "last_name", "position", "profile_image")
