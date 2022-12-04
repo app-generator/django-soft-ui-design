@@ -1,0 +1,18 @@
+{% extends 'layouts/base-presentation.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %} Profile Update {% endblock title %}
+
+{% block content %}
+
+  <div class="container py-7">
+    <h4 class="text-primary">Update Profile Information</h4>
+    <form action="" method="post" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <br>
+      <input type="submit" value="Submit" class="btn bg-gradient-primary w-auto me-1 mb-0">
+    </form>
+  </div>
+
+{% endblock %}

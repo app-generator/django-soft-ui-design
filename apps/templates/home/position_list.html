@@ -1,0 +1,111 @@
+{% extends 'layouts/base-presentation.html' %}
+{% load static %}
+
+{% block title %} Positions {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="container py-6">
+    <div class="row my-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <div class="row">
+              <div class="col-lg-6 col-7">
+                <h5>Position list
+                  <a href="{% url 'home:position-create' %}">
+                    +
+                  </a>
+                </h5>
+              </div>
+              <div class="card-body px-0 pt-0 pb-2">
+                <div class="table-responsive p-0">
+                  {% if position_list %}
+                    <table class="table table-hover align-items-center mb-0">
+                    <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                        Name
+                      </th>
+                      <th class="text-uppercase text-secondary text-xs font-weight-bolder  opacity-7">
+                        Update
+                      </th>
+                      <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                        Delete
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for position in position_list %}
+                      <tr>
+                        <td>
+                          <div class="d-flex px-2 py-1">
+                            <div class="d-flex flex-column justify-content-center">
+                              <h6 class="mb-0 text-sm">
+                                {{ position.name }}
+                              </h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="align-middle text-sm">
+                          <button type="button"
+                                  onclick="window.location.href='{% url 'home:position-update' pk=position.id %}';"
+                                  class="btn bg-gradient-light">
+                            ✔
+                          </button>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <button type="button" class="btn border-0 w-auto mb-0" data-bs-toggle="modal"
+                                  data-bs-target="#Modal{{ position.id }}">
+                            X
+                          </button>
+                          <!-- Modal -->
+                          <div class="modal fade" id="Modal{{ position.id }}" tabindex="-1"
+                               aria-labelledby="exampleModalLabel"
+                               aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">DELETE POSITION</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                          aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  Are you sure you want to remove
+                                  <strong>{{ position.name }}</strong> from the list of
+                                  positions?
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                  <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">
+                                    No
+                                  </button>
+                                  <a href="{% url "home:position-delete" pk=position.id %}"
+                                     class="btn bg-gradient-primary">Yes</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  {% else %}
+                    <p>There are no positions yet.</p>
+                  {% endif %}
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
