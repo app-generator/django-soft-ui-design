@@ -5,7 +5,7 @@
 
 {% block content %}
     <div class="container py-7">
-        <h4 class="text-primary"> Task Type</h4>
+        <h4 class="text-primary">{{ object|yesno:"Update,Create" }} Task Type</h4>
         <form action="" method="post" novalidate>
             {% csrf_token %}
             {{ form|crispy }}

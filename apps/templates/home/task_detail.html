@@ -28,11 +28,11 @@
         <div class="col-md-7 text-end">
           {% if user in task.assignees.all %}
             <a href="{% url 'home:assign-to-task' pk=task.id %}">
-              Remove me from this task <i class="fas fa-user-edit text-secondary text-sm"> </i>
+              Remove me from this task 🗙
             </a>
           {% else %}
             <a href="{% url 'home:assign-to-task' pk=task.id %}">
-              Assign me to this task <i class="fas fa-user-edit text-secondary text-sm"> </i>
+              Assign me to this task ✔
             </a>
           {% endif %}
         </div>

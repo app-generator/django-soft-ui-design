@@ -33,4 +33,4 @@ class PrivateTaskTests(TestCase):
         tasks = Task.objects.all()
         self.assertEqual(res.status_code, 200)
         self.assertEqual(list(res.context["task_list"]), list(tasks))
-        self.assertTemplateUsed(res, "home/main_task_list.html")
+        self.assertTemplateUsed(res, "home/task_list.html")
