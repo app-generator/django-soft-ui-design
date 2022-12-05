@@ -15,6 +15,7 @@ class FormsTests(TestCase):
             "password2": "test12345",
             "first_name": "Test first",
             "last_name": "Test_last",
+            "profile_image": None,
             "position": position,
         }
         form = WorkerCreationForm(data=form_data)

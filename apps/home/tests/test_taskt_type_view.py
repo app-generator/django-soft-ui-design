@@ -13,7 +13,7 @@ class PublicTaskTypeTests(TestCase):
         self.assertNotEqual(res.status_code, 200)
 
 
-class PrivatePositionTests(TestCase):
+class PrivateTaskTypeTests(TestCase):
     def setUp(self) -> None:
         position = Position.objects.create(name="tester")
         self.user = get_user_model().objects.create_user(
@@ -21,11 +21,11 @@ class PrivatePositionTests(TestCase):
         )
         self.client.force_login(self.user)
 
-    def test_retrieve_positions(self):
+    def test_retrieve_task_types(self):
         TaskType.objects.create(name="test1")
         TaskType.objects.create(name="test2")
         res = self.client.get(TASK_TYPE_URL)
         task_types = TaskType.objects.all()
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(list(res.context["position_list"]), list(task_types))
-        self.assertTemplateUsed(res, "home/main_tasktype_list.html")
+        self.assertEqual(list(res.context["tasktype_list"]), list(task_types))
+        self.assertTemplateUsed(res, "home/tasktype_list.html")

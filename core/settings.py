@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "apps.home",  # Enable the inner home (home)
     "crispy_forms",
-    # "django_fields",
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -168,5 +168,6 @@ MEDIA_URL = "/media/"
 
 # DEFAULT_IMAGE_PATH = ASSETS_ROOT + 'img/default_profile_image.jpeg'
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 #############################################################
 #############################################################

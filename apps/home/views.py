@@ -15,7 +15,8 @@ from apps.home.forms import (
     TaskTypeCreationForm,
     PositionCreationForm,
     TaskTypeUpdateForm,
-    PositionUpdateForm, ProfileUpdateForm,
+    PositionUpdateForm,
+    ProfileUpdateForm,
 )
 from apps.home.models import Worker, Task, TaskType, Position
 
@@ -82,6 +83,17 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     model = Worker
     form_class = WorkerCreationForm
     success_url = reverse_lazy("home:worker-list")
+
+
+class ProfileUpdateView(generic.UpdateView):
+    model = Worker
+    template_name = "home/profile_form.html"
+    form_class = ProfileUpdateForm
+    success_url = reverse_lazy("home:worker-list")
+
+    def get_success_url(self):
+        pk = self.kwargs["pk"]
+        return reverse_lazy("home:worker-detail", kwargs={"pk": pk})
 
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
@@ -212,15 +224,3 @@ def delete_position(request, pk):
     position = Position.objects.get(id=pk)
     position.delete()
     return redirect("home:position-list")
-
-
-class ProfileUpdateView(generic.UpdateView):
-    model = Worker
-    template_name = "home/profile_form.html"
-    form_class = ProfileUpdateForm
-    success_url = reverse_lazy("home:worker-list")
-
-    def get_success_url(self):
-        pk = self.kwargs["pk"]
-        return reverse_lazy("home:worker-detail", kwargs={"pk": pk})
-

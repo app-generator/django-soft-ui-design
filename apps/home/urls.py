@@ -19,7 +19,8 @@ from apps.home.views import (
     PositionCreateView,
     TaskTypeUpdateView,
     PositionUpdateView,
-    delete_position, ProfileUpdateView,
+    delete_position,
+    ProfileUpdateView,
 )
 
 urlpatterns = [
@@ -28,7 +29,11 @@ urlpatterns = [
     path("workers/<int:pk>/", WorkerDetailView.as_view(), name="worker-detail"),
     path("workers/create/", WorkerCreateView.as_view(), name="worker-create"),
     path("workers/delete/<int:pk>/", delete_worker, name="worker-delete"),
-    path("workers/<int:pk>/profile_update/", ProfileUpdateView.as_view(), name="profile-update"),
+    path(
+        "workers/<int:pk>/profile_update/",
+        ProfileUpdateView.as_view(),
+        name="profile-update",
+    ),
     path("tasks/", TaskListView.as_view(), name="task-list"),
     path("tasks/<int:pk>/", TaskDetailView.as_view(), name="task-detail"),
     path("tasks/create/", TaskCreateView.as_view(), name="task-create"),
