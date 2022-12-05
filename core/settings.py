@@ -169,5 +169,6 @@ MEDIA_URL = "/media/"
 # DEFAULT_IMAGE_PATH = ASSETS_ROOT + 'img/default_profile_image.jpeg'
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DROPBOX_OAUTH2_TOKEN = "sl.BUaiKIInB9JBuRVXikH06L-sDLfuUDMlYIUJdkJrLP8tsGTv8AeSXactMt0VsuABh18WuDoxkmInNU-BEGVNnYcEKpK7GWaD9HtRv2kHLgj3PeH2gcOOoztfRSn9WQOPdi0gJIU"
 #############################################################
 #############################################################
