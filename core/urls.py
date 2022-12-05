@@ -17,9 +17,9 @@ urlpatterns = [
 urlpatterns += static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )  # Media files routes
-urlpatterns += [
-    url(r'^media/(?P<path>.*)$', django.views.static.serve, {
-    'document_root': settings.MEDIA_ROOT}),]
+# urlpatterns += [
+#     url(r'^media/(?P<path>.*)$', django.views.static.serve, {
+#     'document_root': settings.MEDIA_ROOT}),]
 urlpatterns += [
     path("", include(("apps.home.urls", "apps.home"), namespace="home"))
 ]  # Leave `Home.Urls` as the last
