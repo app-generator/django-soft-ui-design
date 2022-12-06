@@ -5,7 +5,7 @@ Copyright (c) 2019 - present AppSeed.us
 
 import environ
 import os
-
+import storages
 import dj_database_url
 
 env = environ.Env()
@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "apps.home",  # Enable the inner home (home)
     "crispy_forms",
     'storages',
+    'dropbox'
 ]
 
 MIDDLEWARE = [
@@ -163,12 +164,25 @@ STATIC_URL = "/static/"
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (os.path.join(CORE_DIR, "apps/static"),)
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = "media/"
 MEDIA_URL = "/media/"
 
 # DEFAULT_IMAGE_PATH = ASSETS_ROOT + 'img/default_profile_image.jpeg'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-DROPBOX_OAUTH2_TOKEN = "sl.BUaiKIInB9JBuRVXikH06L-sDLfuUDMlYIUJdkJrLP8tsGTv8AeSXactMt0VsuABh18WuDoxkmInNU-BEGVNnYcEKpK7GWaD9HtRv2kHLgj3PeH2gcOOoztfRSn9WQOPdi0gJIU"
-#############################################################
+# DROPBOX_OAUTH2_TOKEN = os.environ.get("DROPBOX_OAUTH2_TOKEN")
+# DROPBOX_APP_KEY = os.environ.get("DROPBOX_APP_KEY")
+# DROPBOX_APP_SECRET = os.environ.get("DROPBOX_APP_SECRET")
+# # DROPBOX_OAUTH2_REFRESH_TOKEN = os.environ.get("DROPBOX_OAUTH2_REFRESH_TOKEN")
+# # DROPBOX_ROOT_PATH = "/"
+# DROPBOX_ROOT_PATH = '/media/'
+# DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage")
+DROPBOX_OAUTH2_TOKEN = 'sl.BUdTEcnir_gXkCFSHQJPetyqVTeDmG6CBTDlqkU5vOKE2kQEIyQzO7JsVfbSWNXFVMI0ZZXZkB24AgYnyRN55LQyhOo8-p08-fDuISVjlSBiuc7PEEhOdK8Zca8v-Ih4eQjz2eU'
+DROPBOX_APP_KEY = 'qi1iuy1m97t0llw'
+DROPBOX_APP_SECRET = 'nfd5jgpgt1jgn2o'
+# DROPBOX_OAUTH2_REFRESH_TOKEN = os.environ.get("DROPBOX_OAUTH2_REFRESH_TOKEN")
+DROPBOX_ROOT_PATH = "/"
+
 #############################################################

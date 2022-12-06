@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.forms import SelectDateWidget
 
 from apps.home.models import Worker, Task, TaskType, Position
-
+import storages
 
 class WorkerCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):

@@ -9,9 +9,11 @@ dj-database-url==0.5.0
 Django==3.2.16
 django-crispy-forms==1.14.0
 django-default-imagefield==0.5.5
+django-dropbox-storage==0.4.1
+django-storages==1.13.1
+dropbox==11.35.0
 django-environ==0.8.1
 django-storages==1.13.1
-dropbox==11.36.0
 gunicorn==20.1.0
 idna==3.4
 mypy-extensions==0.4.3

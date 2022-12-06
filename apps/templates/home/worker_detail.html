@@ -19,7 +19,7 @@
       <div class="col-auto">
         <div class="avatar avatar-xl position-relative">
           {% if  worker.profile_image %}
-            <img src="{{ MEDIA_URL }}{{ worker.profile_image.url }}" alt="profile_image"
+            <img src="{{ worker.profile_image.url }}" alt="profile_image"
                  class="w-100 border-radius-lg shadow-sm">
           {% else %}
             <img src="{% static 'assets/img/default_profile_image.jpeg' %}" alt="profile_image"

@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.template import loader
 from django.urls import reverse, reverse_lazy
 from django.views import generic
+import storages
 
 from apps.home.forms import (
     WorkerCreationForm,
