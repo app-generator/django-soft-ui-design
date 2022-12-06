@@ -171,18 +171,12 @@ MEDIA_URL = "/media/"
 # DEFAULT_IMAGE_PATH = ASSETS_ROOT + 'img/default_profile_image.jpeg'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-# DROPBOX_OAUTH2_TOKEN = os.environ.get("DROPBOX_OAUTH2_TOKEN")
-# DROPBOX_APP_KEY = os.environ.get("DROPBOX_APP_KEY")
-# DROPBOX_APP_SECRET = os.environ.get("DROPBOX_APP_SECRET")
-# # DROPBOX_OAUTH2_REFRESH_TOKEN = os.environ.get("DROPBOX_OAUTH2_REFRESH_TOKEN")
-# # DROPBOX_ROOT_PATH = "/"
-# DROPBOX_ROOT_PATH = '/media/'
-# DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage")
-DROPBOX_OAUTH2_TOKEN = 'sl.BUdTEcnir_gXkCFSHQJPetyqVTeDmG6CBTDlqkU5vOKE2kQEIyQzO7JsVfbSWNXFVMI0ZZXZkB24AgYnyRN55LQyhOo8-p08-fDuISVjlSBiuc7PEEhOdK8Zca8v-Ih4eQjz2eU'
-DROPBOX_APP_KEY = 'qi1iuy1m97t0llw'
-DROPBOX_APP_SECRET = 'nfd5jgpgt1jgn2o'
-# DROPBOX_OAUTH2_REFRESH_TOKEN = os.environ.get("DROPBOX_OAUTH2_REFRESH_TOKEN")
+DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage")
+# DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DROPBOX_OAUTH2_TOKEN = os.environ.get("DROPBOX_OAUTH2_TOKEN")
+DROPBOX_APP_KEY = os.environ.get("DROPBOX_APP_KEY")
+DROPBOX_APP_SECRET = os.environ.get("DROPBOX_APP_SECRET")
+DROPBOX_OAUTH2_REFRESH_TOKEN = os.environ.get("DROPBOX_OAUTH2_REFRESH_TOKEN")
 DROPBOX_ROOT_PATH = "/"
 
 #############################################################
