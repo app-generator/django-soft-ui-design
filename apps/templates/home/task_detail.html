@@ -102,7 +102,7 @@
             <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
               <div class="avatar me-3">
                 {% if  worker.profile_image %}
-                  <img src="{{ MEDIA_URL }}{{ worker.profile_image.url }}"
+                  <img src="{{ worker.profile_image.url }}"
                        alt="kal" class="border-radius-lg shadow">
                 {% else %}
                   <img src="{% static 'assets/img/default_profile_image.jpeg' %}" class="avatar avatar-sm me-3"
