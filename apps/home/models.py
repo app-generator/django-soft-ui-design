@@ -34,6 +34,7 @@ class Worker(AbstractUser):
     )
 
     class Meta:
+        ordering = ["first_name"]
         verbose_name = "worker"
         verbose_name_plural = "workers"
 
