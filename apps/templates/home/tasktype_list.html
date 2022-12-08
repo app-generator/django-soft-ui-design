@@ -11,102 +11,121 @@
   <div class="container py-6">
 
     <div class="row my-4">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header pb-0">
-              <div class="row">
-                <div class="col-lg-6 col-7">
-            <h5>Task Type list
-              <a href="{% url 'home:task-type-create' %}">
-                +
-              </a></h5>
-          </div>
-          <div class="card-body px-0 pt-0 pb-2">
-            <div class="table-responsive p-0">
-              {% if tasktype_list %}
-                <table class="table table-hover align-items-center mb-0">
-                  <thead>
-                  <tr>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-                      Name
-                    </th>
-                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-                      Edit
-                    </th>
-                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-                      Delete
-                    </th>
-
-                  </tr>
-                  </thead>
-                  <tbody>
-                  {% for task_type in tasktype_list %}
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <div class="row">
+              <div class="col-lg-6 col-7">
+                <h5>Task Type list
+                  <a href="{% url 'home:task-type-create' %}">
+                    +
+                  </a></h5>
+              </div>
+              <div class="card-body px-0 pt-0 pb-2">
+                <div class="table-responsive p-0">
+                  {% if tasktype_list %}
+                    <table class="table table-hover align-items-center mb-0">
+                    <thead>
                     <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{ task_type.name }}
-                            </h6>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <button type="button"
-                                    onclick="window.location.href='{% url 'home:task-type-update' pk=task_type.id %}';"
-                                    class="btn bg-gradient-faded-light border-0 w-auto mb-0">
-                                &#9998;
-                            </button>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <button type="button" class="btn border-0 w-auto mb-0" data-bs-toggle="modal"
-                                    data-bs-target="#Modal{{ task_type.id }}">
-                                X
-                            </button>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="Modal{{ task_type.id }}" tabindex="-1"
-                                 aria-labelledby="exampleModalLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">DELETE TASK TYPE</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                              Are you sure you want to remove
-                              <strong>{{ task_type.name }}</strong> from the list of
-                              task types?
-                            </div>
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">
-                                                No
-                                            </button>
-                                            <a href="{% url "home:task-type-delete" pk=task_type.id %}"
-                                               class="btn bg-gradient-primary">Yes</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                      </td>
+                      <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                        Name
+                      </th>
+                      <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                        Edit
+                      </th>
+                      <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                        Delete
+                      </th>
 
                     </tr>
+                    </thead>
+                    <tbody>
+                    {% for task_type in tasktype_list %}
+                      <tr>
+                        <td>
+                          <div class="d-flex px-2 py-1">
+                            <div class="d-flex flex-column justify-content-center">
+                              <h6 class="mb-0 text-sm">{{ task_type.name }}
+                              </h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <button type="button"
+                                  onclick="window.location.href='{% url 'home:task-type-update' pk=task_type.id %}';"
+                                  class="btn bg-gradient-faded-light border-0 w-auto mb-0">
+                            &#9998;
+                          </button>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <button type="button" class="btn border-0 w-auto mb-0" data-bs-toggle="modal"
+                                  data-bs-target="#Modal{{ task_type.id }}">
+                            X
+                          </button>
 
-                  {% endfor %}
-                </tbody>
-              {% else %}
-                <p>There are no task types yet.</p>
-              {% endif %}
+                          <!-- Modal -->
+                          <div class="modal fade" id="Modal{{ task_type.id }}" tabindex="-1"
+                               aria-labelledby="exampleModalLabel"
+                               aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">DELETE TASK TYPE</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                          aria-label="Close"></button>
+                                </div>
+                                {% if user.is_staff %}
+                                  <div class="modal-body">
+                                    Are you sure you want to remove
+                                    <strong>{{ task_type.name }}</strong> from the list of
+                                    task types?
+                                  </div>
+                                  <div class="modal-footer justify-content-between">
+                                  <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">
+                                    No
+                                  </button>
+                                  <a href="{% url "home:task-type-delete" pk=task_type.id %}"
+                                     class="btn bg-gradient-primary">
+                                    Yes
+                                  </a>
+                                {% else %}
+                                  <div class="modal-body">
+                                  <p class="text-warning">* Sorry, you are not allowed to delete task types.</p>
+                                    <p>Are you sure you want to remove
+                                    <strong>{{ task_type.name }}</strong> from the list of
+                                      task types?</p>
+                                  </div>
+                                  <div class="modal-footer justify-content-between">
+                                  <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">
+                                    No
+                                  </button>
+                                  <a href="{% url "home:task-type-delete" pk=task_type.id %}"
+                                     class="disabled btn bg-gradient-primary">
+                                    Yes
+                                  </a>
+                                {% endif %}
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                        </td>
 
-        </table>
-      </div>
+                      </tr>
+
+                    {% endfor %}
+                    </tbody>
+                  {% else %}
+                    <p class="p-3">There are no task types yet.</p>
+                  {% endif %}
+
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
     </div>
-  </div>
-  </div>
-  </div>
   </div>
 {% endblock content %}
 
