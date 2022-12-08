@@ -5,13 +5,18 @@
 
 {% block content %}
   <div class="container py-7">
-  <h4 class="text-primary">{{ object|yesno:"Update,Create" }} Task</h4>
-  <form action="" method="post" novalidate>
-    {% csrf_token %}
+    <h4 class="text-primary">{{ object|yesno:"Update,Create" }} Task</h4>
+    <form action="" method="post" novalidate>
+      {% csrf_token %}
 
-    {{ form|crispy }}
+      {{ form|crispy }}
 
-    <input type="submit" value="Submit" class="btn bg-gradient-primary w-auto me-1 mb-0">
-  </form>
+      <input type="submit" value="Submit" class="btn bg-gradient-primary w-auto me-1 mb-0">
+      {% if object %}
+        <a href="{% url 'home:task-detail' pk=object.id %}" class="btn bg-gradient-dark w-auto me-1 mb-0">Cancel</a>
+      {% else %}
+        <a href="{% url 'home:task-list' %}" class="btn bg-gradient-dark w-auto me-1 mb-0">Cancel</a>
+      {% endif %}
+    </form>
   </div>
 {% endblock %}

@@ -87,7 +87,7 @@
             <div>
               {% if user in task.assignees.all %}
                 <a class="mb-0 text-sm" href="{% url 'home:assign-to-task' pk=task.id %}">
-                  Remove me from this task 🗙
+                  Remove me from this task ✖
                 </a>
               {% else %}
                 <a class="mb-0  text-sm" href="{% url 'home:assign-to-task' pk=task.id %}">
@@ -110,7 +110,7 @@
                     {% endif %}
                   </div>
                   <div class="d-flex align-items-start flex-column justify-content-center">
-                    <h6 class="mb-0 text-sm">{{ worker.first_name }} {{ worker.last_name }}</h6>
+                    <h6 class="mb-0 text-sm"><a href="{% url 'home:worker-detail' pk=worker.id %}">{{ worker.first_name }} {{ worker.last_name }}</a></h6>
                     <p class="mb-0 text-xs">{{ worker.position }}</p>
                   </div>
                 </li>

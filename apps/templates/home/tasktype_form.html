@@ -4,13 +4,14 @@
 {% block title %} {{ object|yesno:"Update,Create" }} Task Type {% endblock title %}
 
 {% block content %}
-    <div class="container py-7">
-        <h4 class="text-primary">{{ object|yesno:"Update,Create" }} Task Type</h4>
-        <form action="" method="post" novalidate>
-            {% csrf_token %}
-            {{ form|crispy }}
-            <br>
-            <input type="submit" value="Submit" class="btn bg-gradient-primary w-auto me-1 mb-0">
-        </form>
-    </div>
+  <div class="container py-7">
+    <h4 class="text-primary">{{ object|yesno:"Update,Create" }} Task Type</h4>
+    <form action="" method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <br>
+      <input type="submit" value="Submit" class="btn bg-gradient-primary w-auto me-1 mb-0">
+      <a href="{% url 'home:task-type-list' %}" class="btn bg-gradient-dark w-auto me-1 mb-0">Cancel</a>
+    </form>
+  </div>
 {% endblock %}

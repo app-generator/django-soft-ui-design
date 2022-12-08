@@ -4,16 +4,17 @@
 {% block title %} {{ object|yesno:"Update,Create" }} Worker {% endblock title %}
 
 {% block content %}
-    <div class="container py-7">
-        <h4 class="text-primary">Add Worker</h4>
-        <form action="" method="post" novalidate enctype="multipart/form-data">
-            {% csrf_token %}
+  <div class="container py-7">
+    <h4 class="text-primary">Add Worker</h4>
+    <form action="" method="post" novalidate enctype="multipart/form-data">
+      {% csrf_token %}
 
-            {{ form|crispy }}
+      {{ form|crispy }}
 
-            <input type="submit" value="Submit" class="btn bg-gradient-primary w-auto me-1 mb-0">
-        </form>
-    </div>
+      <input type="submit" value="Submit" class="btn bg-gradient-primary w-auto me-1 mb-0">
+      <a href="{% url 'home:worker-list' %}" class="btn bg-gradient-dark w-auto me-1 mb-0">Cancel</a>
+    </form>
+  </div>
 
 
 {% endblock %}
