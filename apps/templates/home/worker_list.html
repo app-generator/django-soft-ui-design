@@ -9,173 +9,153 @@
 {% block content %}
 
   <div class="container py-6">
-
     <div class="row my-4">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header pb-0">
-              <div class="row">
-                <div class="col-lg-6 col-7">
-            <h5>Workers list
-              <a href="{% url 'home:worker-create' %}">
-                +
-              </a></h5>
-          </div>
-          <div class="card-body px-0 pt-0 pb-2">
-            <div class="table-responsive p-0">
-              {% if worker_list %}
-                <table class="table table-hover align-items-center mb-0">
-                  <thead>
-                  <colgroup>
-                    <col style="width: 28%"/>
-                    <col style="width: 15%"/>
-                    <col style="width: 28%"/>
-                    <col style="width: 8%"/>
-                    <col style="width: 15%"/>
-
-                  </colgroup>
-                  <tr>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-                      Worker
-                    </th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder  opacity-7">
-                      Position
-                    </th>
-                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-                      Total tasks assigned to
-                    </th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder text-center opacity-7">
-                      Progress
-                    </th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder text-center opacity-7">
-                      Delete
-                    </th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  {% for worker in worker_list %}
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <div class="row">
+              <div class="col-lg-6 col-7">
+                <h5>Workers list
+                  <a href="{% url 'home:worker-create' %}">
+                    +
+                  </a></h5>
+              </div>
+              <div class="card-body px-0 pt-0 pb-2">
+                <div class="table-responsive p-0">
+                  {% if worker_list %}
+                    <table class="table table-hover align-items-center mb-0">
+                    <colgroup>
+                      <col style="width: 28%"/>
+                      <col style="width: 15%"/>
+                      <col style="width: 28%"/>
+                      <col style="width: 8%"/>
+                      <col style="width: 15%"/>
+                    </colgroup>
+                    <thead>
                     <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            {% if  worker.profile_image %}
-                            <img src="{{ worker.profile_image.url }}"
-                                 class="avatar avatar-sm me-3" alt="user1">
-                              {% else %}
-
-                            <img src="{% static 'assets/img/default_profile_image.jpeg' %}" class="avatar avatar-sm me-3" alt="user1">
-
-                            {% endif %}
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm"><a
-                                href="{{ worker.get_absolute_url }}">{{ worker.first_name }} {{ worker.last_name }}</a>
-                            </h6>
-                            <p class="text-xs text-secondary mb-0">{{ worker.username }}</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="align-middle text-sm">
-                        <span class="mb-0 text-sm">{{ worker.position }}</span>
-                        {#                        <p class="text-xs text-secondary mb-0">Organization</p>#}
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-primary">{{ worker.tasks_assigned_to }}</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        {#                                                                        <div class="d-flex align-items-center justify-content-center">#}
-                        <span class="me-2 text-xs font-weight-bold">{{ worker.progress }}%</span>
-                        {#                                                                          <div>#}
-                        <div class="progress">
-                          {% if worker.progress < 50 %}
-                            <div class="progress-bar bg-gradient-danger" role="progressbar"
-                                 aria-valuenow="{{ worker.progress }}" aria-valuemin="0"
-                                 aria-valuemax="100"
-                                 style="width: {{ worker.progress }}%;"></div>
-                          {% elif  50 <= worker.progress and worker.progress < 100 %}
-                            <div class="progress-bar bg-gradient-info" role="progressbar"
-                                 aria-valuenow="{{ worker.progress }}" aria-valuemin="0"
-                                 aria-valuemax="100"
-                                 style="width: {{ worker.progress }}%;"></div>
-                          {% else %}
-                            <div class="progress-bar bg-gradient-success" role="progressbar"
-                                 aria-valuenow="{{ worker.progress }}" aria-valuemin="0"
-                                 aria-valuemax="100"
-                                 style="width: {{ worker.progress }}%;"></div>
-
-                          {% endif %}
-                        </div>
-                      <td class="align-middle text-center">
-                        <button type="button" class="btn border-0 w-auto mb-0"
-                                data-bs-toggle="modal"
-                                data-bs-target="#Modal{{ worker.id }}">
-                          X
-                        </button>
-                      </td>
-                      <!-- Modal -->
-                      <div class="modal fade" id="Modal{{ worker.id }}" tabindex="-1"
-                           aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">DELETE
-                                WORKER</h5>
-                              <button type="button" class="btn-close"
-                                      data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            {% if user.is_staff %}
-                            <div class="modal-body">
-                              Are you sure you want to remove
-                              <strong>{{ worker.first_name }} {{ worker.last_name }}</strong> from the list of
-                              workers?
-                            </div>
-                            <div class="modal-footer justify-content-between">
-                              <button type="button" class="btn bg-gradient-dark"
-                                      data-bs-dismiss="modal">No
-                              </button>
-                              <a href="{% url "home:worker-delete" pk=worker.id %}"
-                                 class="btn bg-gradient-primary">Yes</a>
-                            </div>
-                              {% else %}
-                              <div class="modal-body">
-                              <p class="text-warning">* Sorry, you are not allowed to delete workers.</p>
-                              <p>Are you sure you want to remove
-                              <strong>{{ worker.first_name }} {{ worker.last_name }}</strong> from the list of
-                              workers?</p>
-                            </div>
-                            <div class="modal-footer justify-content-between">
-                              <button type="button" class="btn bg-gradient-dark"
-                                      data-bs-dismiss="modal">No
-                              </button>
-                              <a href="{% url "home:worker-delete" pk=worker.id %}"
-                                 class="disabled btn bg-gradient-primary">
-                                Yes
-                              </a>
-                            </div>
-                            {% endif %}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    </div>
-                    </div>
-                    </td>
+                      <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                        Worker
+                      </th>
+                      <th class="text-uppercase text-secondary text-xs font-weight-bolder  opacity-7">
+                        Position
+                      </th>
+                      <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                        Total tasks assigned to
+                      </th>
+                      <th class="text-uppercase text-secondary text-xs font-weight-bolder text-center opacity-7">
+                        Progress
+                      </th>
+                      <th class="text-uppercase text-secondary text-xs font-weight-bolder text-center opacity-7">
+                        Delete
+                      </th>
                     </tr>
+                    </thead>
+                    <tbody>
+                    {% for worker in worker_list %}
+                      <tr>
+                        <td>
+                          <div class="d-flex px-2 py-1">
+                            <div>
+                              {% if  worker.profile_image %}
+                                <img src="{{ worker.profile_image.url }}"
+                                     class="avatar avatar-sm me-3" alt="user1">
+                              {% else %}
+                                <img src="{% static 'assets/img/default_profile_image.jpeg' %}"
+                                     class="avatar avatar-sm me-3" alt="user1">
+                              {% endif %}
+                            </div>
+                            <div class="d-flex flex-column justify-content-center">
+                              <h6 class="mb-0 text-sm"><a
+                                  href="{{ worker.get_absolute_url }}">{{ worker.first_name }} {{ worker.last_name }}</a>
+                              </h6>
+                              <p class="text-xs text-secondary mb-0">{{ worker.username }}</p>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="align-middle text-sm">
+                          <span class="mb-0 text-sm">{{ worker.position }}</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="badge badge-sm bg-gradient-primary">{{ worker.tasks_assigned_to }}</span>
+                        </td>
+                        <td class="align-middle text-center">
+                          <span class="me-2 text-xs font-weight-bold">{{ worker.progress }}%</span>
+                          <div class="progress">
+                            {% if worker.progress < 50 %}
+                              <div class="progress-bar bg-gradient-danger" role="progressbar"
+                                   aria-valuenow="{{ worker.progress }}" aria-valuemin="0"
+                                   aria-valuemax="100"
+                                   style="width: {{ worker.progress }}%;"></div>
+                            {% elif  50 <= worker.progress and worker.progress < 100 %}
+                              <div class="progress-bar bg-gradient-info" role="progressbar"
+                                   aria-valuenow="{{ worker.progress }}" aria-valuemin="0"
+                                   aria-valuemax="100"
+                                   style="width: {{ worker.progress }}%;"></div>
+                            {% else %}
+                              <div class="progress-bar bg-gradient-success" role="progressbar"
+                                   aria-valuenow="{{ worker.progress }}" aria-valuemin="0"
+                                   aria-valuemax="100"
+                                   style="width: {{ worker.progress }}%;"></div>
+                            {% endif %}
+                          </div>
+                        <td class="align-middle text-center">
+                          <button type="button" class="btn border-0 w-auto mb-0"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#Modal{{ worker.id }}">
+                            X
+                          </button>
 
-                  {% endfor %}
-                </tbody>
-              {% else %}
-                <p>There are no workers in the company.</p>
-              {% endif %}
-
-        </table>
-      </div>
+                          <!-- Modal -->
+                          <div class="modal fade" id="Modal{{ worker.id }}" tabindex="-1"
+                               aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">DELETE
+                                    WORKER</h5>
+                                  <button type="button" class="btn-close"
+                                          data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  Are you sure you want to remove
+                                  <strong>{{ worker.first_name }} {{ worker.last_name }}</strong> from the list of
+                                  workers?
+                                  {% if not user.is_staff %}
+                                    <br>
+                                    <span
+                                        class="text-warning text-xs">* Sorry, you are not allowed to delete workers .</span>
+                                  {% endif %}
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                  <button type="button" class="btn bg-gradient-dark"
+                                          data-bs-dismiss="modal">No
+                                  </button>
+                                  {% if user.is_staff %}
+                                    <a href="{% url "home:worker-delete" pk=worker.id %}"
+                                       class="btn bg-gradient-primary">Yes</a>
+                                  {% else %}
+                                    <a href="{% url "home:worker-delete" pk=worker.id %}"
+                                       class="disabled btn bg-gradient-primary">Yes</a>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  {% else %}
+                    <p>There are no workers in the company.</p>
+                  {% endif %}
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
     </div>
-  </div>
-  </div>
   </div>
 
 {% endblock content %}

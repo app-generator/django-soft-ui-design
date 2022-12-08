@@ -8,289 +8,273 @@
 
 {% block content %}
 
-<div class="container pt-6">
-
-  <div class="page-header min-height-300 border-radius-xl mt-4"
-       style="background-image: url('{{ ASSETS_ROOT }}/img/curved-images/curved0.jpg'); background-position-y: 50%;">
-    <span class="mask bg-gradient-primary opacity-6"></span>
-  </div>
-  <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
-    <div class="row gx-4">
-      <div class="col-auto">
-        <div class="avatar avatar-xl position-relative">
-          {% if  worker.profile_image %}
-            <img src="{{ worker.profile_image.url }}" alt="profile_image"
-                 class="w-100 border-radius-lg shadow-sm">
-          {% else %}
-            <img src="{% static 'assets/img/default_profile_image.jpeg' %}" alt="profile_image"
-                 class="w-100 border-radius-lg shadow-sm">
-          {% endif %}
+  <div class="container pt-6">
+    <div class="page-header min-height-300 border-radius-xl mt-4"
+         style="background-image: url('{{ ASSETS_ROOT }}/img/curved-images/curved0.jpg'); background-position-y: 50%;">
+      <span class="mask bg-gradient-primary opacity-6"></span>
+    </div>
+    <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
+      <div class="row gx-4">
+        <div class="col-auto">
+          <div class="avatar avatar-xl position-relative">
+            {% if  worker.profile_image %}
+              <img src="{{ worker.profile_image.url }}" alt="profile_image"
+                   class="w-100 border-radius-lg shadow-sm">
+            {% else %}
+              <img src="{% static 'assets/img/default_profile_image.jpeg' %}" alt="profile_image"
+                   class="w-100 border-radius-lg shadow-sm">
+            {% endif %}
+          </div>
         </div>
-      </div>
-      <div class="col-auto my-auto">
-        <div class="h-100">
-          <h5 class="mb-1">
-            {{ worker.first_name }} {{ worker.last_name }}
-          </h5>
-          <p class="mb-0 font-weight-bold text-sm">
-            {{ worker.username }}
-          </p>
+        <div class="col-auto my-auto">
+          <div class="h-100">
+            <h5 class="mb-1">
+              {{ worker.first_name }} {{ worker.last_name }}
+            </h5>
+            <p class="mb-0 font-weight-bold text-sm">
+              {{ worker.username }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-</div>
-
-<div class="container py-4">
-  <div class="col-12 col-xl-4">
-    <div class="card h-100">
-      <div class="card-header pb-0 p-3">
-        <div class="row">
-          <div class="col-md-8 d-flex align-items-center">
-            <h5 class="text-primary mb-0">Profile Information</h5>
-          </div>
-          <div class="col-md-4 text-end">
-            <a href="{% url 'home:profile-update' pk=worker.id %}">
-              <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip"
-                 data-bs-placement="top" title="Edit Profile"></i>
-            </a>
+  <div class="container py-4">
+    <div class="col-12 col-xl-4">
+      <div class="card h-100">
+        <div class="card-header pb-0 p-3">
+          <div class="row">
+            <div class="col-md-8 d-flex align-items-center">
+              <h5 class="text-primary mb-0">Profile Information</h5>
+            </div>
+            <div class="col-md-4 text-end">
+              <a href="{% url 'home:profile-update' pk=worker.id %}">
+                <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip"
+                   data-bs-placement="top" title="Edit Profile"></i>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="card-body p-3">
-        <ul class="list-group">
-          <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full
-            Name:</strong> &nbsp; {{ worker.first_name }} {{ worker.last_name }}</li>
-          <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Position:</strong>
-            &nbsp; {{ worker.position }}</li>
-          <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Number of tasks
-            assigned to:</strong> &nbsp; {{ worker.tasks_assigned_to }}</li>
-          <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Progress:</strong>
-            &nbsp; {{ worker.progress }} %
-          </li>
-        </ul>
+        <div class="card-body p-3">
+          <ul class="list-group">
+            <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full
+              Name:</strong> &nbsp; {{ worker.first_name }} {{ worker.last_name }}</li>
+            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Position:</strong>
+              &nbsp; {{ worker.position }}</li>
+            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Number of tasks
+              assigned to:</strong> &nbsp; {{ worker.tasks_assigned_to }}</li>
+            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Progress:</strong>
+              &nbsp; {{ worker.progress }} %
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="col-12 mt-4">
-    <div class="card mb-4">
-      <div class="card-header pb-0">
-        <h5 class="text-primary">Tasks to be completed</h5>
-      </div>
-      <div class="card-body px-0 pt-0 pb-2">
-        <div class="table-responsive p-0">
-          {% if worker.tasks.all %}
-            <table class="table table-hover align-items-center mb-0">
-            <thead style="background: #F1F1F1; border-radius: 2rem">
-            <colgroup>
-              <col style="width: 16%"/>
-              <col style="width: 16%"/>
-              <col style="width: 16%"/>
-              <col style="width: 16%"/>
-              <col style="width: 16%"/>
-              <col style="width: 16%"/>
-            </colgroup>
-            <tr>
-              <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Task</th>
-              <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-                Description
-              </th>
-              <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Task
-                type
-              </th>
-              <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-                Priority
-              </th>
-              <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Status
-              </th>
-              <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Change
-                status
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for task in worker.tasks.all %}
-              {% if not task.is_completed %}
-                <tr>
-                  <td class="align-middle text-sm">{{ task.name }}</td>
-                  <td>
-                    <button type="button" class="btn border-0 my-0 inline"
-                            data-bs-container="body"
-                            data-bs-toggle="popover" data-bs-placement="top"
-                            data-bs-content-id="popover-content{{ task.id }}">
-                      <svg class="text-dark" width="16px" height="16px" viewBox="0 0 40 44"
-                           version="1.1"
-                           xmlns="http://www.w3.org/2000/svg"
-                           xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <title>description</title>
-                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                          <g transform="translate(-1870.000000, -591.000000)"
-                             fill="#FFFFFF"
-                             fill-rule="nonzero">
-                            <g transform="translate(1716.000000, 291.000000)">
-                              <g transform="translate(154.000000, 300.000000)">
-                                <path class="color-background"
-                                      d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z"
-                                      opacity="0.603585379"></path>
-                                <path class="color-background"
-                                      d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z">
-                                </path>
+    <div class="col-12 mt-4">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <h5 class="text-primary">Tasks to be completed</h5>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            {% if worker.tasks.all %}
+              <table class="table table-hover align-items-center mb-0">
+              <colgroup>
+                <col style="width: 16%"/>
+                <col style="width: 16%"/>
+                <col style="width: 16%"/>
+                <col style="width: 16%"/>
+                <col style="width: 16%"/>
+                <col style="width: 16%"/>
+              </colgroup>
+              <thead style="background: #F1F1F1; border-radius: 2rem">
+              <tr>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Task</th>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                  Description
+                </th>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Task
+                  type
+                </th>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                  Priority
+                </th>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Status
+                </th>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Change
+                  status
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for task in worker.tasks.all %}
+                {% if not task.is_completed %}
+                  <tr>
+                    <td class="align-middle text-sm">{{ task.name }}</td>
+                    <td>
+                      <button type="button" class="btn border-0 my-0 inline"
+                              data-bs-container="body"
+                              data-bs-toggle="popover" data-bs-placement="top"
+                              data-bs-content-id="popover-content{{ task.id }}">
+                        <svg class="text-dark" width="16px" height="16px" viewBox="0 0 40 44"
+                             version="1.1"
+                             xmlns="http://www.w3.org/2000/svg"
+                             xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <title>description</title>
+                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g transform="translate(-1870.000000, -591.000000)"
+                               fill="#FFFFFF"
+                               fill-rule="nonzero">
+                              <g transform="translate(1716.000000, 291.000000)">
+                                <g transform="translate(154.000000, 300.000000)">
+                                  <path class="color-background"
+                                        d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z"
+                                        opacity="0.603585379"></path>
+                                  <path class="color-background"
+                                        d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z">
+                                  </path>
+                                </g>
                               </g>
                             </g>
                           </g>
-                        </g>
-                      </svg>
-
-                    </button>
-                    <div id="popover-content{{ task.id }}" class="d-none">
-                      {{ task.description }}
-                    </div>
-                  </td>
-                  <td class="align-middle text-sm">{{ task.task_type }}</td>
-                  <td class="align-middle text-sm">
-                    {% if task.priority == 1 %}
-                      <span class="badge bg-gradient-danger">{{ task.get_priority_display }}</span>
-                    {% elif task.priority == 2 %}
-                      <span class="badge bg-gradient-dark">{{ task.get_priority_display }}</span>
-                    {% elif task.priority == 3 %}
-                      <span class="badge bg-gradient-secondary">{{ task.get_priority_display }}</span>
-                    {% elif task.priority == 4 %}
-                      <span class="badge bg-gradient-light text-dark">{{ task.get_priority_display }}</span>
-                    {% endif %}
-                  </td>
-                  <td class="align-middle text-sm">Not done</td>
-                  <td class="align-middle text-sm"><a
-                      href="{% url 'home:change-task-status' pk1=task.id pk2=worker.id %}"
-                      class="text-uppercase text-primary text-xs font-weight-bolder opacity-7">
-                    Complete
-                  </a></td>
-                </tr>
-              {% endif %}
-            {% endfor %}
-          {% else %}
-            <p class="p-3">No tasks to be completed yet.</p>
-          {% endif %}
-          </tbody>
-          </table>
+                        </svg>
+                      </button>
+                      <div id="popover-content{{ task.id }}" class="d-none">
+                        {{ task.description }}
+                      </div>
+                    </td>
+                    <td class="align-middle text-sm">{{ task.task_type }}</td>
+                    <td class="align-middle text-sm">
+                      {% if task.priority == 1 %}
+                        <span class="badge bg-gradient-danger">{{ task.get_priority_display }}</span>
+                      {% elif task.priority == 2 %}
+                        <span class="badge bg-gradient-dark">{{ task.get_priority_display }}</span>
+                      {% elif task.priority == 3 %}
+                        <span class="badge bg-gradient-secondary">{{ task.get_priority_display }}</span>
+                      {% elif task.priority == 4 %}
+                        <span class="badge bg-gradient-light text-dark">{{ task.get_priority_display }}</span>
+                      {% endif %}
+                    </td>
+                    <td class="align-middle text-sm">Not done</td>
+                    <td class="align-middle text-sm"><a
+                        href="{% url 'home:change-task-status' pk1=task.id pk2=worker.id %}"
+                        class="text-uppercase text-primary text-xs font-weight-bolder opacity-7">
+                      Complete
+                    </a></td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              <p class="p-3">No tasks to be completed yet.</p>
+            {% endif %}
+            </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-
-  <div class="col-12 mt-4">
-    <div class="card mb-4">
-      {% if worker.tasks.all %}
-
-        <div class="card-header pb-0">
-          <h5 class="text-primary">Completed tasks</h5>
-        </div>
-        <div class="card-body px-0 pt-0 pb-2">
-        <div class="table-responsive p-0">
-
-        <table class="table table-hover align-items-center mb-0">
-        <thead style="background: #F1F1F1">
-        <colgroup>
-          <col style="width: 16%"/>
-          <col style="width: 16%"/>
-          <col style="width: 16%"/>
-          <col style="width: 16%"/>
-          <col style="width: 16%"/>
-          <col style="width: 16%"/>
-        </colgroup>
-        <tr>
-          <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Task</th>
-          <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-            Description
-          </th>
-          <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Task
-            type
-          </th>
-          <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-            Priority
-          </th>
-          <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Status
-          </th>
-          <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Change
-            status
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for task in worker.tasks.all %}
-          {% if task.is_completed %}
-            <tr>
-              <td class="align-middle text-sm">{{ task.name }}</td>
-              <td class="align-middle text-sm">
-                <button type="button" class="btn border-0 my-0 inline"
-                        data-bs-container="body"
-                        data-bs-toggle="popover" data-bs-placement="top"
-                        data-bs-content-id="popover-content{{ task.id }}">
-                  <svg class="text-dark" width="16px" height="16px" viewBox="0 0 40 44"
-                       version="1.1"
-                       xmlns="http://www.w3.org/2000/svg"
-                       xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <title>description</title>
-                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                      <g transform="translate(-1870.000000, -591.000000)"
-                         fill="#FFFFFF"
-                         fill-rule="nonzero">
-                        <g transform="translate(1716.000000, 291.000000)">
-                          <g transform="translate(154.000000, 300.000000)">
-                            <path class="color-background"
-                                  d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z"
-                                  opacity="0.603585379"></path>
-                            <path class="color-background"
-                                  d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z">
-                            </path>
+    <div class="col-12 mt-4">
+      <div class="card mb-4">
+        {% if worker.tasks.all %}
+          <div class="card-header pb-0">
+            <h5 class="text-primary">Completed tasks</h5>
+          </div>
+          <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+          <table class="table table-hover align-items-center mb-0">
+          <colgroup>
+            <col style="width: 16%"/>
+            <col style="width: 16%"/>
+            <col style="width: 16%"/>
+            <col style="width: 16%"/>
+            <col style="width: 16%"/>
+            <col style="width: 16%"/>
+          </colgroup>
+          <thead style="background: #F1F1F1">
+          <tr>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Task</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+              Description
+            </th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Task
+              type
+            </th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+              Priority
+            </th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Status
+            </th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Change
+              status
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for task in worker.tasks.all %}
+            {% if task.is_completed %}
+              <tr>
+                <td class="align-middle text-sm">{{ task.name }}</td>
+                <td class="align-middle text-sm">
+                  <button type="button" class="btn border-0 my-0 inline"
+                          data-bs-container="body"
+                          data-bs-toggle="popover" data-bs-placement="top"
+                          data-bs-content-id="popover-content{{ task.id }}">
+                    <svg class="text-dark" width="16px" height="16px" viewBox="0 0 40 44"
+                         version="1.1"
+                         xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <title>description</title>
+                      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g transform="translate(-1870.000000, -591.000000)"
+                           fill="#FFFFFF"
+                           fill-rule="nonzero">
+                          <g transform="translate(1716.000000, 291.000000)">
+                            <g transform="translate(154.000000, 300.000000)">
+                              <path class="color-background"
+                                    d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z"
+                                    opacity="0.603585379"></path>
+                              <path class="color-background"
+                                    d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z">
+                              </path>
+                            </g>
                           </g>
                         </g>
                       </g>
-                    </g>
-                  </svg>
-
-                </button>
-                <div id="popover-content{{ task.id }}" class="d-none">
-                  {{ task.description }}
-                </div>
-              </td>
-              <td class="align-middle text-sm">{{ task.task_type }}</td>
-              <td class="align-middle text-sm">
-                {% if task.priority == 1 %}
-                  <span class="badge bg-gradient-danger">{{ task.get_priority_display }}</span>
-                {% elif task.priority == 2 %}
-                  <span class="badge bg-gradient-dark">{{ task.get_priority_display }}</span>
-                {% elif task.priority == 3 %}
-                  <span class="badge bg-gradient-secondary">{{ task.get_priority_display }}</span>
-                {% elif task.priority == 4 %}
-                  <span class="badge bg-gradient-light text-dark">{{ task.get_priority_display }}</span>
-                {% endif %}
-
-              </td>
-              <td class="align-middle text-sm">Done</td>
-              <td class="align-middle text-sm"><a
-                  href="{% url 'home:change-task-status' pk1=task.id pk2=worker.id %}"
-                  class="text-uppercase text-primary text-xs font-weight-bolder opacity-7">
-                Undo
-              </a></td>
-            </tr>
-          {% endif %}
-        {% endfor %}
-      {% endif %}
-      </tbody>
-      </table>
-      </div>
+                    </svg>
+                  </button>
+                  <div id="popover-content{{ task.id }}" class="d-none">
+                    {{ task.description }}
+                  </div>
+                </td>
+                <td class="align-middle text-sm">{{ task.task_type }}</td>
+                <td class="align-middle text-sm">
+                  {% if task.priority == 1 %}
+                    <span class="badge bg-gradient-danger">{{ task.get_priority_display }}</span>
+                  {% elif task.priority == 2 %}
+                    <span class="badge bg-gradient-dark">{{ task.get_priority_display }}</span>
+                  {% elif task.priority == 3 %}
+                    <span class="badge bg-gradient-secondary">{{ task.get_priority_display }}</span>
+                  {% elif task.priority == 4 %}
+                    <span class="badge bg-gradient-light text-dark">{{ task.get_priority_display }}</span>
+                  {% endif %}
+                </td>
+                <td class="align-middle text-sm">Done</td>
+                <td class="align-middle text-sm"><a
+                    href="{% url 'home:change-task-status' pk1=task.id pk2=worker.id %}"
+                    class="text-uppercase text-primary text-xs font-weight-bolder opacity-7">
+                  Undo
+                </a></td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+        </tbody>
+        </table>
+        </div>
+        </div>
       </div>
     </div>
-
   </div>
-</div>
-
-</div>
-
-</div>
 
 {% endblock content %}
 

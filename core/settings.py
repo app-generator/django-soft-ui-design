@@ -54,8 +54,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "apps.home",  # Enable the inner home (home)
     "crispy_forms",
-    'storages',
-    'dropbox'
+    "storages",
+    "dropbox",
 ]
 
 MIDDLEWARE = [
@@ -169,9 +169,11 @@ MEDIA_ROOT = "media/"
 MEDIA_URL = "/media/"
 
 # DEFAULT_IMAGE_PATH = ASSETS_ROOT + 'img/default_profile_image.jpeg'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage")
+DEFAULT_FILE_STORAGE = os.environ.get(
+    "DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage"
+)
 # DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 DROPBOX_OAUTH2_TOKEN = os.environ.get("DROPBOX_OAUTH2_TOKEN")
 DROPBOX_APP_KEY = os.environ.get("DROPBOX_APP_KEY")
