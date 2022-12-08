@@ -123,6 +123,7 @@
                               <button type="button" class="btn-close"
                                       data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
+                            {% if user.is_staff %}
                             <div class="modal-body">
                               Are you sure you want to remove
                               <strong>{{ worker.first_name }} {{ worker.last_name }}</strong> from the list of
@@ -135,6 +136,23 @@
                               <a href="{% url "home:worker-delete" pk=worker.id %}"
                                  class="btn bg-gradient-primary">Yes</a>
                             </div>
+                              {% else %}
+                              <div class="modal-body">
+                              <p class="text-warning">* Sorry, you are not allowed to delete workers.</p>
+                              <p>Are you sure you want to remove
+                              <strong>{{ worker.first_name }} {{ worker.last_name }}</strong> from the list of
+                              workers?</p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                              <button type="button" class="btn bg-gradient-dark"
+                                      data-bs-dismiss="modal">No
+                              </button>
+                              <a href="{% url "home:worker-delete" pk=worker.id %}"
+                                 class="disabled btn bg-gradient-primary">
+                                Yes
+                              </a>
+                            </div>
+                            {% endif %}
                           </div>
                         </div>
                       </div>

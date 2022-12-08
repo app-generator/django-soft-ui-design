@@ -73,18 +73,37 @@
                                   <button type="button" class="btn-close" data-bs-dismiss="modal"
                                           aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
-                                  Are you sure you want to remove
-                                  <strong>{{ position.name }}</strong> from the list of
-                                  positions?
-                                </div>
-                                <div class="modal-footer justify-content-between">
-                                  <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">
-                                    No
-                                  </button>
-                                  <a href="{% url "home:position-delete" pk=position.id %}"
-                                     class="btn bg-gradient-primary">Yes</a>
-                                </div>
+                                {% if user.is_staff %}
+                                  <div class="modal-body">
+                                    Are you sure you want to remove
+                                    <strong>{{ position.name }}</strong> from the list of
+                                    positions?
+                                  </div>
+                                  <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">
+                                      No
+                                    </button>
+                                    <a href="{% url "home:position-delete" pk=position.id %}"
+                                       class="btn bg-gradient-primary">Yes</a>
+                                  </div>
+                                {% else %}
+                                  <div class="modal-body">
+                                    <p class="text-warning">* Sorry, you are not allowed to delete positions.</p>
+                                    <p>Are you sure you want to remove
+                                      <strong>{{ position.name }}</strong> from the list of
+                                      positions?</p>
+                                  </div>
+                                  <div class=" modal-footer justify-content-between">
+                                    <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">
+                                      No
+                                    </button>
+                                    <a href="{% url "home:position-delete" pk=position.id %}"
+                                       class="disabled btn bg-gradient-primary">
+                                      Yes
+                                    </a>
+                                  </div>
+                                {% endif %}
+
                               </div>
                             </div>
                           </div>
@@ -93,7 +112,7 @@
                     {% endfor %}
                     </tbody>
                   {% else %}
-                    <p>There are no positions yet.</p>
+                    <p class="p-3">There are no positions yet.</p>
                   {% endif %}
                   </table>
                 </div>

@@ -25,24 +25,6 @@
             </p>
           </div>
         </div>
-{#        <div class="col-md-7 text-end">#}
-{#          {% if user in task.assignees.all %}#}
-{#            <div class="h-100">#}
-{#            <h7 class="mb-1">#}
-{#              <a href="{% url 'home:assign-to-task' pk=task.id %}">#}
-{#              Remove me from this task 🗙#}
-{#            </a>#}
-{#            </h7>#}
-{#            </div>#}
-{#          {% else %}#}
-{#             <div class="h-100">#}
-{#            <h7 class="mb-1">#}
-{#              <a href="{% url 'home:assign-to-task' pk=task.id %}">#}
-{#              Assign me to this task ✔#}
-{#            </a>#}
-{#            </h7>#}
-{#          {% endif %}#}
-{#        </div>#}
       </div>
     </div>
   </div>
@@ -104,18 +86,17 @@
         <h5 class="text-primary mb-0">Assigned to</h5>
         <div>
         {% if user in task.assignees.all %}
-              <a class="text-secondary mb-0  text-sm" href="{% url 'home:assign-to-task' pk=task.id %}">
-              Remove me from this task 🗙
+              <a class="mb-0 text-sm" href="{% url 'home:assign-to-task' pk=task.id %}">
+                Remove me from this task <span>🗙</span>
             </a>
           {% else %}
-              <a class="text-secondary mb-0  text-sm" href="{% url 'home:assign-to-task' pk=task.id %}">
-              Assign me to this task ✔
+              <a class="mb-0  text-sm" href="{% url 'home:assign-to-task' pk=task.id %}">
+              Assign me to this task <span style="color:black">✔</span>
             </a>
           {% endif %}
       </div>
 
       </div>
-
       <div class="card-body p-3">
         <ul class="list-group">
           {% for worker in task.assignees.all %}
@@ -139,5 +120,4 @@
       </div>
     </div>
   </div>
-
 {% endblock %}

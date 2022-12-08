@@ -129,6 +129,7 @@
                             <button type="button" class="btn-close"
                                     data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
+                          {% if user.is_staff %}
                           <div class="modal-body">
                             Are you sure you want to remove
                             <strong>{{ task.name }}</strong> from the list of
@@ -141,6 +142,21 @@
                             <a href="{% url "home:task-delete" pk=task.id %}"
                                class="btn bg-gradient-primary">Yes</a>
                           </div>
+                          {% else %}
+                            <div class="modal-body">
+                            <p class="text-warning">* Sorry, you are not allowed to delete tasks.</p>
+                            <p>Are you sure you want to remove
+                            <strong>{{ task.name }}</strong> from the list of
+                            tasks?</p>
+                          </div>
+                          <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn bg-gradient-dark"
+                                    data-bs-dismiss="modal">No
+                            </button>
+                            <a href="{% url "home:task-delete" pk=task.id %}"
+                               class="disabled btn bg-gradient-primary">Yes</a>
+                          </div>
+                          {% endif %}
                         </div>
                       </div>
                     </div>
@@ -149,7 +165,7 @@
                   </tbody>
                 </table>
               {% else %}
-                <p>NO TASKS</p>
+                <p class="p-3">No tasks with this task type.</p>
               {% endif %}
             </div>
           </div>
