@@ -6,7 +6,6 @@ from django.shortcuts import redirect
 from django.template import loader
 from django.urls import reverse, reverse_lazy
 from django.views import generic
-import storages
 
 from apps.home.forms import (
     WorkerCreationForm,
@@ -19,7 +18,12 @@ from apps.home.forms import (
     PositionUpdateForm,
     ProfileUpdateForm,
 )
-from apps.home.models import Worker, Task, TaskType, Position
+from apps.home.models import (
+    Worker,
+    Task,
+    TaskType,
+    Position,
+)
 
 
 @login_required(login_url="/login/")
@@ -71,13 +75,13 @@ def pages(request):
 
 class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
-    queryset = Worker.objects.all().select_related("position")
+    queryset = Worker.objects.select_related("position").all()
     paginate_by = 5
 
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
     model = Worker
-    queryset = Worker.objects.all().select_related("position")
+    queryset = Worker.objects.select_related("position").prefetch_related("tasks").all()
 
 
 class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
@@ -90,7 +94,6 @@ class ProfileUpdateView(generic.UpdateView):
     model = Worker
     template_name = "home/profile_form.html"
     form_class = ProfileUpdateForm
-    success_url = reverse_lazy("home:worker-list")
 
     def get_success_url(self):
         pk = self.kwargs["pk"]
@@ -101,7 +104,7 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     paginate_by = 5
     queryset = (
-        Task.objects.all().select_related("task_type").prefetch_related("assignees")
+        Task.objects.select_related("task_type").prefetch_related("assignees").all()
     )
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -126,7 +129,7 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
     queryset = (
-        Task.objects.all().select_related("task_type").prefetch_related("assignees")
+        Task.objects.select_related("task_type").prefetch_related("assignees").all()
     )
 
 

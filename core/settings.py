@@ -10,40 +10,31 @@ import dj_database_url
 
 env = environ.Env()
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print(BASE_DIR)
 
-# Take environment variables from .env file
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY", default="S#perS3crEt_007")
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
-# DEBUG = env("DEBUG")
 
-# Assets Management
 ASSETS_ROOT = os.getenv("ASSETS_ROOT", "/static/assets")
 
-# load production server from .env
+
 ALLOWED_HOSTS = [
     "localhost",
     "localhost:85",
     "127.0.0.1",
-    env("SERVER", default="127.0.0.1"),
     "task-manager-1efo.onrender.com",
 ]
+
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:85",
     "http://127.0.0.1",
     "https://task-manager-1efo.onrender.com",
     "https://" + env("SERVER", default="127.0.0.1"),
 ]
-
-# Application definition
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -72,8 +63,8 @@ MIDDLEWARE = [
 AUTH_USER_MODEL = "home.Worker"
 
 ROOT_URLCONF = "core.urls"
-LOGIN_REDIRECT_URL = "home"  # Route defined in home/urls.py
-LOGOUT_REDIRECT_URL = "home"  # Route defined in home/urls.py
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"
 TEMPLATE_DIR = os.path.join(CORE_DIR, "apps/templates")  # ROOT dir for templates
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
@@ -97,9 +88,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
 if os.environ.get("DB_ENGINE") and os.environ.get("DB_ENGINE") == "mysql":
     DATABASES = {
         "default": {
@@ -122,9 +110,6 @@ else:
 db_from_env = dj_database_url.config()
 DATABASES["default"].update(db_from_env)
 
-# Password validation
-# https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -140,9 +125,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
-# https://docs.djangoproject.com/en/3.0/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -153,31 +135,21 @@ USE_L10N = True
 
 USE_TZ = True
 
-#############################################################
-# SRC: https://devcenter.heroku.com/articles/django-assets
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_ROOT = os.path.join(CORE_DIR, "staticfiles")
 STATIC_URL = "/static/"
 
-# Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (os.path.join(CORE_DIR, "apps/static"),)
 
-# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_ROOT = "media/"
 MEDIA_URL = "/media/"
 
-# DEFAULT_IMAGE_PATH = ASSETS_ROOT + 'img/default_profile_image.jpeg'
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 DEFAULT_FILE_STORAGE = os.environ.get(
     "DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage"
 )
-# DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 DROPBOX_OAUTH2_TOKEN = os.environ.get("DROPBOX_OAUTH2_TOKEN")
 DROPBOX_APP_KEY = os.environ.get("DROPBOX_APP_KEY")
 DROPBOX_APP_SECRET = os.environ.get("DROPBOX_APP_SECRET")
 DROPBOX_OAUTH2_REFRESH_TOKEN = os.environ.get("DROPBOX_OAUTH2_REFRESH_TOKEN")
 DROPBOX_ROOT_PATH = "/"
-#############################################################

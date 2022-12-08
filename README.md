@@ -9,8 +9,8 @@ A powerful tool for managing tasks and meeting deadlines.
 Use the following user to log in and check the functionality of the website: 
 
 ```shell
-login: TestUser
-password: user12345
+login: tester
+password: test12345
 ```
 
 ## Installation 
@@ -35,14 +35,12 @@ python manage.py runserver #starts Django Server
 * Tasks can be delegated to certain workers and tracked
 * Each worker has his own detail page with completed and uncompleted task displayed separately
 * All tasks can be prioritised to manage time more effectively and  hit deadlines
-* Powerful admin panel for advanced managing
 
 ## Demo
 
-![Website Interface](apps/static/assets/img/demo/home_page.jpg)
-![Website Interface](apps/static/assets/img/demo/task_list.jpg)
-![Website Interface](apps/static/assets/img/demo/task_detail.jpg)
-![Website Interface](apps/static/assets/img/demo/worker_list.jpg)
-![Website Interface](apps/static/assets/img/demo/user_page.jpg)
-![Website Interface](apps/static/assets/img/demo/new_worker.jpg)
-![Website Interface](apps/static/assets/img/demo/position_list.jpg)
+![Website Interface](home_page.jpg)
+![Website Interface](task_list.jpg)
+![Website Interface](task_detail.jpg)
+![Website Interface](worker_list.jpg)
+![Website Interface](user_page.jpg)
+![Website Interface](position_list.jpg)
