@@ -7,9 +7,7 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-
   <div class="container py-6">
-
     <div class="row my-4">
       <div class="col-12">
         <div class="card">
@@ -36,7 +34,6 @@
                       <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                         Delete
                       </th>
-
                     </tr>
                     </thead>
                     <tbody>
@@ -62,7 +59,6 @@
                                   data-bs-target="#Modal{{ task_type.id }}">
                             X
                           </button>
-
                           <!-- Modal -->
                           <div class="modal fade" id="Modal{{ task_type.id }}" tabindex="-1"
                                aria-labelledby="exampleModalLabel"
@@ -70,54 +66,47 @@
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">DELETE TASK TYPE</h5>
+                                  <h5 class="modal-title" id="exampleModalLabel">DELETE TASK TYPE </h5>
+
                                   <button type="button" class="btn-close" data-bs-dismiss="modal"
                                           aria-label="Close"></button>
                                 </div>
-                                {% if user.is_staff %}
-                                  <div class="modal-body">
-                                    Are you sure you want to remove
-                                    <strong>{{ task_type.name }}</strong> from the list of
-                                    task types?
-                                  </div>
-                                  <div class="modal-footer justify-content-between">
-                                  <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">
-                                    No
-                                  </button>
-                                  <a href="{% url "home:task-type-delete" pk=task_type.id %}"
-                                     class="btn bg-gradient-primary">
-                                    Yes
-                                  </a>
-                                {% else %}
-                                  <div class="modal-body">
-                                  <p class="text-warning">* Sorry, you are not allowed to delete task types.</p>
-                                    <p>Are you sure you want to remove
-                                    <strong>{{ task_type.name }}</strong> from the list of
-                                      task types?</p>
-                                  </div>
-                                  <div class="modal-footer justify-content-between">
-                                  <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">
-                                    No
-                                  </button>
-                                  <a href="{% url "home:task-type-delete" pk=task_type.id %}"
-                                     class="disabled btn bg-gradient-primary">
-                                    Yes
-                                  </a>
-                                {% endif %}
+                                <div class="modal-body">
+                                  Are you sure you want to remove
+                                  <strong>{{ task_type.name }}</strong> from the list of
+                                  task types?
+                                  {% if not user.is_staff %}
+                                    <br>
+                                    <span
+                                        class="text-warning text-xs">* Sorry, you are not allowed to delete task types.</span>
+                                  {% endif %}
                                 </div>
+                                <div class="modal-footer justify-content-between">
+                                  <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">
+                                    No
+                                  </button>
+                                  {% if user.is_staff %}
+                                    <a href="{% url "home:task-type-delete" pk=task_type.id %}"
+                                       class="btn bg-gradient-primary">
+                                      Yes
+                                    </a>
+                                  {% else %}
+                                    <a href="{% url "home:task-type-delete" pk=task_type.id %}"
+                                       class="disabled btn bg-gradient-primary">
+                                      Yes
+                                    </a>
+                                  {% endif %}
                                 </div>
                               </div>
                             </div>
+                          </div>
                         </td>
-
                       </tr>
-
                     {% endfor %}
                     </tbody>
                   {% else %}
                     <p class="p-3">There are no task types yet.</p>
                   {% endif %}
-
                   </table>
                 </div>
               </div>
@@ -128,6 +117,5 @@
     </div>
   </div>
 {% endblock content %}
-
 <!-- Specific JS goes HERE -->
 {% block javascripts %}{% endblock javascripts %}

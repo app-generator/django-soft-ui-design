@@ -29,95 +29,97 @@
     </div>
   </div>
   <div class="container py-4">
-  <div class="row">
-  <div class="col-12 col-xl-4">
-    <div class="card h-100">
-      <div class="card-header pb-0 p-3">
-        <div class="row">
-          <div class="col-md-8 d-flex align-items-center">
-            <h5 class="text-primary mb-0">Details</h5>
+    <div class="row">
+      <div class="col-12 col-xl-4">
+        <div class="card h-100">
+          <div class="card-header pb-0 p-3">
+            <div class="row">
+              <div class="col-md-8 d-flex align-items-center">
+                <h5 class="text-primary mb-0">Details</h5>
+              </div>
+              <div class="col-md-4 text-end">
+                <a href="{% url 'home:task-update' pk=task.id %}">
+                  <i class="fas fa-user-edit text-secondary text-sm"></i>
+                </a>
+              </div>
+            </div>
           </div>
-          <div class="col-md-4 text-end">
-            <a href="{% url 'home:task-update' pk=task.id %}">
-              <i class="fas fa-user-edit text-secondary text-sm"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="card-body p-3">
-        <ul class="list-group">
-          <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Task Type:</strong>
-            &nbsp; {{ task.task_type }}</li>
-          <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Status:</strong>
-            &nbsp; {{ task.is_completed|yesno:"DONE, NOT DONE" }}</li>
-          <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Deadline:</strong>
-            &nbsp;{{ task.deadline }}</li>
-          <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Priority:</strong> &nbsp;
-            {% if task.priority == 1 %}
-              <span class="badge bg-gradient-primary">Urgent</span>
-            {% elif task.priority == 2 %}
-              <span class="badge bg-gradient-dark">High</span>
-            {% elif task.priority == 3 %}
-              <span class="badge bg-gradient-secondary">Medium</span>
-            {% elif task.priority == 4 %}
-              <span class="badge bg-gradient-light text-dark">Low</span>
-            {% endif %}</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-xl-4">
-    <div class="card h-100">
-      <div class="card-header pb-0 p-3">
-        <div class="row">
-          <div class="col-md-8 d-flex align-items-center">
-            <h5 class="text-primary mb-0">Description</h5>
+          <div class="card-body p-3">
+            <ul class="list-group">
+              <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Task Type:</strong>
+                &nbsp; {{ task.task_type }}</li>
+              <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Status:</strong>
+                &nbsp; {{ task.is_completed|yesno:"DONE, NOT DONE" }}</li>
+              <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Deadline:</strong>
+                &nbsp;{{ task.deadline }}</li>
+              <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Priority:</strong> &nbsp;
+                {% if task.priority == 1 %}
+                  <span class="badge bg-gradient-primary">Urgent</span>
+                {% elif task.priority == 2 %}
+                  <span class="badge bg-gradient-dark">High</span>
+                {% elif task.priority == 3 %}
+                  <span class="badge bg-gradient-secondary">Medium</span>
+                {% elif task.priority == 4 %}
+                  <span class="badge bg-gradient-light text-dark">Low</span>
+                {% endif %}</li>
+            </ul>
           </div>
         </div>
       </div>
-      <div class="card-body p-3">
-        <p class="text-dark">{{ task.description }}</p>
+      <div class="col-12 col-xl-4">
+        <div class="card h-100">
+          <div class="card-header pb-0 p-3">
+            <div class="row">
+              <div class="col-md-8 d-flex align-items-center">
+                <h5 class="text-primary mb-0">Description</h5>
+              </div>
+            </div>
+          </div>
+          <div class="card-body p-3">
+            <p class="text-dark">{{ task.description }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-xl-4">
+        <div class="card h-100">
+          <div class="card-header pb-0 p-3 ">
+            <h5 class="text-primary mb-0">Assigned to</h5>
+            <div>
+              {% if user in task.assignees.all %}
+                <a class="mb-0 text-sm" href="{% url 'home:assign-to-task' pk=task.id %}">
+                  Remove me from this task 🗙
+                </a>
+              {% else %}
+                <a class="mb-0  text-sm" href="{% url 'home:assign-to-task' pk=task.id %}">
+                  Assign me to this task ✔
+                </a>
+              {% endif %}
+            </div>
+          </div>
+          <div class="card-body p-3">
+            <ul class="list-group">
+              {% for worker in task.assignees.all %}
+                <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                  <div class="avatar me-3">
+                    {% if  worker.profile_image %}
+                      <img src="{{ worker.profile_image.url }}"
+                           alt="kal" class="border-radius-lg shadow">
+                    {% else %}
+                      <img src="{% static 'assets/img/default_profile_image.jpeg' %}" class="avatar avatar-sm me-3"
+                           alt="user1">
+                    {% endif %}
+                  </div>
+                  <div class="d-flex align-items-start flex-column justify-content-center">
+                    <h6 class="mb-0 text-sm">{{ worker.first_name }} {{ worker.last_name }}</h6>
+                    <p class="mb-0 text-xs">{{ worker.position }}</p>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="col-12 col-xl-4">
-    <div class="card h-100">
-      <div class="card-header pb-0 p-3 ">
-        <h5 class="text-primary mb-0">Assigned to</h5>
-        <div>
-        {% if user in task.assignees.all %}
-              <a class="mb-0 text-sm" href="{% url 'home:assign-to-task' pk=task.id %}">
-                Remove me from this task <span>🗙</span>
-            </a>
-          {% else %}
-              <a class="mb-0  text-sm" href="{% url 'home:assign-to-task' pk=task.id %}">
-              Assign me to this task <span style="color:black">✔</span>
-            </a>
-          {% endif %}
-      </div>
 
-      </div>
-      <div class="card-body p-3">
-        <ul class="list-group">
-          {% for worker in task.assignees.all %}
-            <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
-              <div class="avatar me-3">
-                {% if  worker.profile_image %}
-                  <img src="{{ worker.profile_image.url }}"
-                       alt="kal" class="border-radius-lg shadow">
-                {% else %}
-                  <img src="{% static 'assets/img/default_profile_image.jpeg' %}" class="avatar avatar-sm me-3"
-                       alt="user1">
-                {% endif %}
-              </div>
-              <div class="d-flex align-items-start flex-column justify-content-center">
-                <h6 class="mb-0 text-sm">{{ worker.first_name }} {{ worker.last_name }}</h6>
-                <p class="mb-0 text-xs">{{ worker.position }}</p>
-              </div>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-  </div>
 {% endblock %}

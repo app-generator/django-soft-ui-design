@@ -10,7 +10,6 @@
 {% block content %}
 
   <div class="container py-6">
-
     <div class="row my-4">
       <div class="col-12">
         <div class="card">
@@ -22,12 +21,11 @@
                     +
                   </a>
                 </h5>
-
                 <form action="" method="get" class="d-flex align-items-center flex-nowrap">
                   {% csrf_token %}
                   {{ search_form|crispy }}
-                  <button class="btn btn-outline-primary  align-items-center" type="submit"><i class="fas fa-search"
-                                                                                               aria-hidden="true"></i>
+                  <button class="btn btn-outline-primary  align-items-center" type="submit">
+                    <i class="fas fa-search" aria-hidden="true"></i>
                   </button>
                 </form>
               </div>
@@ -91,7 +89,6 @@
                             {% endif %}
                           {% endfor %}
                         {% endif %}
-
                       </div>
                     </td>
                     <td class="align-middle text-center text-sm">
@@ -129,34 +126,28 @@
                             <button type="button" class="btn-close"
                                     data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
-                          {% if user.is_staff %}
                           <div class="modal-body">
                             Are you sure you want to remove
                             <strong>{{ task.name }}</strong> from the list of
                             tasks?
+                            {% if not user.is_staff %}
+                              <br>
+                              <span
+                                  class="text-warning text-xs">* Sorry, you are not allowed to delete tasks.</span>
+                            {% endif %}
                           </div>
                           <div class="modal-footer justify-content-between">
                             <button type="button" class="btn bg-gradient-dark"
                                     data-bs-dismiss="modal">No
                             </button>
-                            <a href="{% url "home:task-delete" pk=task.id %}"
-                               class="btn bg-gradient-primary">Yes</a>
+                            {% if user.is_staff %}
+                              <a href="{% url "home:task-delete" pk=task.id %}"
+                                 class="btn bg-gradient-primary">Yes</a>
+                            {% else %}
+                              <a href="{% url "home:task-delete" pk=task.id %}"
+                                 class="disabled btn bg-gradient-primary">Yes</a>
+                            {% endif %}
                           </div>
-                          {% else %}
-                            <div class="modal-body">
-                            <p class="text-warning">* Sorry, you are not allowed to delete tasks.</p>
-                            <p>Are you sure you want to remove
-                            <strong>{{ task.name }}</strong> from the list of
-                            tasks?</p>
-                          </div>
-                          <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn bg-gradient-dark"
-                                    data-bs-dismiss="modal">No
-                            </button>
-                            <a href="{% url "home:task-delete" pk=task.id %}"
-                               class="disabled btn bg-gradient-primary">Yes</a>
-                          </div>
-                          {% endif %}
                         </div>
                       </div>
                     </div>

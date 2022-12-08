@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.forms import SelectDateWidget
 
 from apps.home.models import Worker, Task, TaskType, Position
-import storages
+
 
 class WorkerCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
@@ -34,7 +34,7 @@ class TaskCreationForm(forms.ModelForm):
         fields = "__all__"
 
     def clean_deadline(self):
-        deadline = self.cleaned_data['deadline']
+        deadline = self.cleaned_data["deadline"]
         if deadline < datetime.date.today():
             raise forms.ValidationError("The date of deadline cannot be in the past!")
         return deadline
