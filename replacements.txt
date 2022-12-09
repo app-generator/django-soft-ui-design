@@ -1,4 +1,0 @@
-"sl.BUaiKIInB9JBuRVXikH06L-sDLfuUDMlYIUJdkJrLP8tsGTv8AeSXactMt0VsuABh18WuDoxkmInNU-BEGVNnYcEKpK7GWaD9HtRv2kHLgj3PeH2gcOOoztfRSn9WQOPdi0gJIU"==>os.environ.get("DROPBOX_OAUTH2_TOKEN")
-'sl.BUdTEcnir_gXkCFSHQJPetyqVTeDmG6CBTDlqkU5vOKE2kQEIyQzO7JsVfbSWNXFVMI0ZZXZkB24AgYnyRN55LQyhOo8-p08-fDuISVjlSBiuc7PEEhOdK8Zca8v-Ih4eQjz2eU'==>os.environ.get("DROPBOX_OAUTH2_TOKEN")
-'qi1iuy1m97t0llw'==>os.environ.get("DROPBOX_APP_KEY")
-'nfd5jgpgt1jgn2o'==>os.environ.get("DROPBOX_APP_SECRET")
