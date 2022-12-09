@@ -11,7 +11,6 @@ Use the following user to log in and check the functionality of the website:
 ```shell
 login: tester
 password: test12345
-```
 
 ## Installation 
 
