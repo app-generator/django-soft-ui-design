@@ -42,7 +42,7 @@ class Worker(AbstractUser):
 
     @property
     def tasks_assigned_to(self):
-        return len(self.tasks.all())
+        return self.tasks.count()
 
     @property
     def progress(self):
