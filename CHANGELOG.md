@@ -1,11 +1,12 @@
 # Change Log
 
-## [1.0.4] 2022-05-30
-### Improvements
+## [1.0.5] 2023-01-11
+### Changes
 
-- Built with [Soft UI Design Generator](https://appseed.us/generator/soft-ui-design/)
-  - Timestamp: `2022-05-31 08:27`
-
+- Move to theme-based pattern
+  - [Django Theme Soft Design](https://appseed.us/product/soft-ui-design/django/) `v1.0.6`
+- 🚀 `Deployment` 
+  - `CI/CD` flow via `Render`
 
 ## [1.0.3] 2022-01-17
 ### Improvements
