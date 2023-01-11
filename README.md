@@ -12,7 +12,7 @@ The product is designed to deliver the best possible user experience with highly
 > Features: 
 
 - ✅ `Up-to-date Dependencies`
-- ✅ Theme: [Django Theme Soft Design](https://appseed.us/product/soft-ui-design/django/)
+- ✅ Theme: [Django Theme Soft Design](https://github.com/app-generator/django-theme-soft-design)
 - ✅ **Authentication**: `Django.contrib.AUTH`, Registration
 - 🚀 `Deployment` 
   - `CI/CD` flow via `Render`
