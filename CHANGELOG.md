@@ -4,7 +4,7 @@
 ### Changes
 
 - Move to theme-based pattern
-  - [Django Theme Soft Design](https://appseed.us/product/soft-ui-design/django/) `v1.0.6`
+  - [Django Theme Soft Design](https://github.com/app-generator/django-theme-soft-design) `v1.0.6`
 - 🚀 `Deployment` 
   - `CI/CD` flow via `Render`
 
