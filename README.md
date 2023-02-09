@@ -12,7 +12,7 @@ The product is designed to deliver the best possible user experience with highly
 > Features: 
 
 - ✅ `Up-to-date Dependencies`
-- ✅ Theme: [Django Theme Soft Design](https://github.com/app-generator/django-theme-soft-design)
+- ✅ Theme: [Django Theme Soft Design](https://github.com/app-generator/django-theme-soft-design), **designed by [Creative-Tim](https://www.creative-tim.com/product/soft-ui-design-system?AFFILIATE=128200)**
 - ✅ **Authentication**: `Django.contrib.AUTH`, Registration
 - 🚀 `Deployment` 
   - `CI/CD` flow via `Render`
