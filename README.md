@@ -1,5 +1,5 @@
 
-# [Django Soft Design](https://app-generator.dev/product/soft-ui-design/django/)
+# [Django Soft Design](https://app-generator.dev/product/)
 
 **Django** project crafted on top of **Soft Design**, an open-source iconic `Bootstrap` design actively supported by Creative-Tim.
 The product is designed to deliver the best possible user experience with highly customizable, feature-rich pages. 
